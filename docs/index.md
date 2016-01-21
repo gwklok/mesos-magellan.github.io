@@ -1,17 +1,17 @@
-# Welcome to MkDocs
+# Magellan
 
-For full documentation visit [mkdocs.org](http://mkdocs.org).
+A Mesos framework for Distributed Simulated Annealing.
 
-## Commands
+## Components
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs help` - Print this help message.
+### Faleiro (The Scheduler)
 
-## Project layout
+### Enrique (The Executor)
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+### Miguel (The Scheduler CLI)
+
+### Victoria (Development Environment)
+
+### Traveling Sailor (TSP Solver using Simulated Annealing)
+
+### Circumnavigator
