@@ -1,6 +1,6 @@
 # mesos-magellan.github.io
 
-```
+```bash
 git checkout content
 # Write documentation in the content branch
 ./deploy.sh
