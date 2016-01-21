@@ -2,23 +2,18 @@
     "docs": [
         {
             "location": "/", 
-            "text": "Welcome to MkDocs\n\n\nFor full documentation visit \nmkdocs.org\n.\n\n\nCommands\n\n\n\n\nmkdocs new [dir-name]\n - Create a new project.\n\n\nmkdocs serve\n - Start the live-reloading docs server.\n\n\nmkdocs build\n - Build the documentation site.\n\n\nmkdocs help\n - Print this help message.\n\n\n\n\nProject layout\n\n\nmkdocs.yml    # The configuration file.\ndocs/\n    index.md  # The documentation homepage.\n    ...       # Other markdown pages, images and other files.", 
+            "text": "Magellan\n\n\nA Mesos framework for Distributed Simulated Annealing.\n\n\nComponents\n\n\nFaleiro (The Scheduler)\n\n\nEnrique (The Executor)\n\n\nMiguel (The Scheduler CLI)\n\n\nVictoria (Development Environment)\n\n\nTraveling Sailor (TSP Solver using Simulated Annealing)\n\n\nCircumnavigator", 
             "title": "Home"
         }, 
         {
-            "location": "/#welcome-to-mkdocs", 
-            "text": "For full documentation visit  mkdocs.org .", 
-            "title": "Welcome to MkDocs"
+            "location": "/#magellan", 
+            "text": "A Mesos framework for Distributed Simulated Annealing.", 
+            "title": "Magellan"
         }, 
         {
-            "location": "/#commands", 
-            "text": "mkdocs new [dir-name]  - Create a new project.  mkdocs serve  - Start the live-reloading docs server.  mkdocs build  - Build the documentation site.  mkdocs help  - Print this help message.", 
-            "title": "Commands"
-        }, 
-        {
-            "location": "/#project-layout", 
-            "text": "mkdocs.yml    # The configuration file.\ndocs/\n    index.md  # The documentation homepage.\n    ...       # Other markdown pages, images and other files.", 
-            "title": "Project layout"
+            "location": "/#components", 
+            "text": "Faleiro (The Scheduler)  Enrique (The Executor)  Miguel (The Scheduler CLI)  Victoria (Development Environment)  Traveling Sailor (TSP Solver using Simulated Annealing)  Circumnavigator", 
+            "title": "Components"
         }
     ]
 }
