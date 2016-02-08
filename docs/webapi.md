@@ -46,7 +46,7 @@ Set the status of an existing job
 **Request**
 ```json
 {
-	"status" : "start" /* or "stop" or "pause" */
+	"status" : "resume" /* or "stop" or "pause" */
 }
 ```
 
@@ -72,7 +72,7 @@ Get all the jobs
 }
 ```
 
-**Response(200)**
+**Response (200)**
 ```json
 {
     [
@@ -127,7 +127,7 @@ Get a specific job by job_id
 }
 ```
 
-**Response(200)**
+**Response (200)**
 ```json
 {
     "job_id" : 42,
