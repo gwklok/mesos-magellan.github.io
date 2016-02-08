@@ -11,7 +11,7 @@ Create a new job
 	"task_init_temp" : 100,
 	"task_init_cooling_rate" : 0.1,
 	"task_iterations_per_temp" : 10000,
-	"executor_path" : "enrique",
+	"task_name" : "traveling_sailor",
 	"job_data" : {
 		"problem_size" : 99,
 		"expected_solution" : 0,
