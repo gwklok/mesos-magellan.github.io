@@ -14,4 +14,4 @@ A Mesos framework for Distributed Simulated Annealing.
 
 ### Traveling Sailor (TSP Solver using Simulated Annealing)
 
-### Circumnavigator
+### Circumnavigator (Web User Interface)
