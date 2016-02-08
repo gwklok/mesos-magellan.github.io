@@ -1,2 +1,5 @@
 site_name: Magellan
 theme: cyborg
+pages:
+- Home : index.md
+- Web API Schema: webapi.md
