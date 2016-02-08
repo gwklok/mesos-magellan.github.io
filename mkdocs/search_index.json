@@ -12,8 +12,63 @@
         }, 
         {
             "location": "/#components", 
-            "text": "Faleiro (The Scheduler)  Enrique (The Executor)  Miguel (The Scheduler CLI)  Victoria (Development Environment)  Traveling Sailor (TSP Solver using Simulated Annealing)  Circumnavigator", 
+            "text": "", 
             "title": "Components"
+        }, 
+        {
+            "location": "/#faleiro-the-scheduler", 
+            "text": "", 
+            "title": "Faleiro (The Scheduler)"
+        }, 
+        {
+            "location": "/#enrique-the-executor", 
+            "text": "", 
+            "title": "Enrique (The Executor)"
+        }, 
+        {
+            "location": "/#miguel-the-scheduler-cli", 
+            "text": "", 
+            "title": "Miguel (The Scheduler CLI)"
+        }, 
+        {
+            "location": "/#victoria-development-environment", 
+            "text": "", 
+            "title": "Victoria (Development Environment)"
+        }, 
+        {
+            "location": "/#traveling-sailor-tsp-solver-using-simulated-annealing", 
+            "text": "", 
+            "title": "Traveling Sailor (TSP Solver using Simulated Annealing)"
+        }, 
+        {
+            "location": "/#circumnavigator", 
+            "text": "", 
+            "title": "Circumnavigator"
+        }, 
+        {
+            "location": "/webapi/", 
+            "text": "POST /api/job\n\n\nCreate a new job\n\n\nRequest\n\n\n{\n    \njob_name\n : \nSolve 99 Problems\n,\n    \njob_init_temp\n : 200,\n    \njob_init_cooling_rate\n : 0.2,\n    \njob_iterations_per_temp\n : 100000,\n    \ntask_init_temp\n : 100,\n    \ntask_init_cooling_rate\n : 0.1,\n    \ntask_iterations_per_temp\n : 10000,\n    \nexecutor_path\n : \nenrique\n\n}\n\n\n\n\nResponse (200)\n\n\n{\n    \njob_id\n : 42\n}\n\n\n\n\nResponse (422)\n\n\n{\n    \nmessage\n : \nA parameter is missing\n\n}\n\n\n\n\nResponse (500)\n\n\n{\n    \nmessage\n : \nFailed to create job\n\n}\n\n\n\n\nPUT /api/job/{job_id}/status\n\n\nSet the status of an existing job\n\n\nParameters\n\n\n{job_id}\n : \nID of the job to modify\n\n\nRequest\n\n\n{\n    \nstatus\n : \nstart\n /* or \nstop\n or \npause\n */\n}\n\n\n\n\nResponse (200)\n\n\n{\n}\n\n\n\n\nResponse (422)\n\n\n{\n    \nmessage\n : \nA parameter is missing\n\n}\n\n\n\n\nGET /api/jobs\n\n\nGet all the jobs\n\n\nRequest\n\n\n{\n}\n\n\n\n\nResponse(200)\n\n\n{\n    [\n        {\n            \njob_id\n : 42,\n            \njob_name\n : \nSolve 99 Problems\n,\n            \njob_starting_temp\n : 200,\n            \njob_cooling_rate\n : 0.2,\n            \njob_count\n : 10,\n            \ntask_starting_temp\n : 100,\n            \ntask_cooling_rate\n : 0.1,\n            \ntask_count\n : 10,\n            \nbest_location\n : \n{ \\\npath\\\n : \\\nSUJENAGHWOPQ\\\n }\n,\n            \nbest_energy\n : 400.5,\n            \nenergy_history\n : [\n                0.2,\n                400.5,\n                10.122\n            ]\n        },\n        {\n            \njob_id\n : 47,\n            \njob_name\n : \nSolve All Problems\n,\n            \njob_starting_temp\n : 250,\n            \njob_cooling_rate\n : 0.6,\n            \njob_count\n : 32,\n            \ntask_starting_temp\n : 80,\n            \ntask_cooling_rate\n : 0.8,\n            \ntask_count\n : 100,\n            \nbest_location\n : \n{ \\\nindex\\\n : 2345093 }\n,\n            \nbest_energy\n : 12039454,\n            \nenergy_history\n : [\n                947345,\n                3302,\n                12039454\n            ]\n        }\n    ]\n}\n\n\n\n\nGET /api/job/{job_id}\n\n\nGet a specific job by job_id\n\n\nParameters\n\n\n{job_id}\n : \nID of the job to retrieve\n\n\nRequest\n\n\n{\n}\n\n\n\n\nResponse(200)\n\n\n{\n    \njob_id\n : 42,\n    \njob_name\n : \nSolve 99 Problems\n,\n    \njob_starting_temp\n : 200,\n    \njob_cooling_rate\n : 0.2,\n    \njob_count\n : 10,\n    \ntask_starting_temp\n : 100,\n    \ntask_cooling_rate\n : 0.1,\n    \ntask_count\n : 10,\n    \nbest_location\n : \n{ \\\npath\\\n : \\\nSUJENAGHWOPQ\\\n }\n,\n    \nbest_energy\n : 400.5,\n    \nenergy_history\n : [\n        0.2,\n        400.5,\n        10.122\n    ]\n}\n\n\n\n\nResponse (422)\n\n\n{\n    \nmessage\n : \nA parameter is missing\n\n}", 
+            "title": "Web API Schema"
+        }, 
+        {
+            "location": "/webapi/#post-apijob", 
+            "text": "Create a new job  Request  {\n     job_name  :  Solve 99 Problems ,\n     job_init_temp  : 200,\n     job_init_cooling_rate  : 0.2,\n     job_iterations_per_temp  : 100000,\n     task_init_temp  : 100,\n     task_init_cooling_rate  : 0.1,\n     task_iterations_per_temp  : 10000,\n     executor_path  :  enrique \n}  Response (200)  {\n     job_id  : 42\n}  Response (422)  {\n     message  :  A parameter is missing \n}  Response (500)  {\n     message  :  Failed to create job \n}", 
+            "title": "POST /api/job"
+        }, 
+        {
+            "location": "/webapi/#put-apijobjob_idstatus", 
+            "text": "Set the status of an existing job  Parameters  {job_id}  :  ID of the job to modify  Request  {\n     status  :  start  /* or  stop  or  pause  */\n}  Response (200)  {\n}  Response (422)  {\n     message  :  A parameter is missing \n}", 
+            "title": "PUT /api/job/{job_id}/status"
+        }, 
+        {
+            "location": "/webapi/#get-apijobs", 
+            "text": "Get all the jobs  Request  {\n}  Response(200)  {\n    [\n        {\n             job_id  : 42,\n             job_name  :  Solve 99 Problems ,\n             job_starting_temp  : 200,\n             job_cooling_rate  : 0.2,\n             job_count  : 10,\n             task_starting_temp  : 100,\n             task_cooling_rate  : 0.1,\n             task_count  : 10,\n             best_location  :  { \\ path\\  : \\ SUJENAGHWOPQ\\  } ,\n             best_energy  : 400.5,\n             energy_history  : [\n                0.2,\n                400.5,\n                10.122\n            ]\n        },\n        {\n             job_id  : 47,\n             job_name  :  Solve All Problems ,\n             job_starting_temp  : 250,\n             job_cooling_rate  : 0.6,\n             job_count  : 32,\n             task_starting_temp  : 80,\n             task_cooling_rate  : 0.8,\n             task_count  : 100,\n             best_location  :  { \\ index\\  : 2345093 } ,\n             best_energy  : 12039454,\n             energy_history  : [\n                947345,\n                3302,\n                12039454\n            ]\n        }\n    ]\n}", 
+            "title": "GET /api/jobs"
+        }, 
+        {
+            "location": "/webapi/#get-apijobjob_id", 
+            "text": "Get a specific job by job_id  Parameters  {job_id}  :  ID of the job to retrieve  Request  {\n}  Response(200)  {\n     job_id  : 42,\n     job_name  :  Solve 99 Problems ,\n     job_starting_temp  : 200,\n     job_cooling_rate  : 0.2,\n     job_count  : 10,\n     task_starting_temp  : 100,\n     task_cooling_rate  : 0.1,\n     task_count  : 10,\n     best_location  :  { \\ path\\  : \\ SUJENAGHWOPQ\\  } ,\n     best_energy  : 400.5,\n     energy_history  : [\n        0.2,\n        400.5,\n        10.122\n    ]\n}  Response (422)  {\n     message  :  A parameter is missing \n}", 
+            "title": "GET /api/job/{job_id}"
         }
     ]
 }
