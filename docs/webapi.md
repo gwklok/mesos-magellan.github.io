@@ -11,7 +11,19 @@ Create a new job
 	"task_init_temp" : 100,
 	"task_init_cooling_rate" : 0.1,
 	"task_iterations_per_temp" : 10000,
-	"executor_path" : "enrique"
+	"executor_path" : "enrique",
+	"job_data" : {
+		"problem_size" : 99,
+		"expected_solution" : 0,
+		"anything_i_want" : {
+			"all_my_things" : [
+				"cat",
+				4096,
+				"dogs",
+				"foo"
+			]
+		}
+	}
 }
 ```
 
