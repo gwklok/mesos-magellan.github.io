@@ -7,14 +7,14 @@
         
         
         
-        <link rel="shortcut icon" href="./img/favicon.ico">
+        <link rel="shortcut icon" href="../img/favicon.ico">
 
-	<title>Magellan</title>
+	<title>Web API to Scheduler - Magellan</title>
 
-        <link href="./css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="./css/font-awesome-4.0.3.css" rel="stylesheet">
-        <link rel="stylesheet" href="./css/highlight.css">
-        <link href="./css/base.css" rel="stylesheet">
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/highlight.css">
+        <link href="../css/base.css" rel="stylesheet">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -41,7 +41,7 @@
             </button>
 
             <!-- Main title -->
-            <a class="navbar-brand" href=".">Magellan</a>
+            <a class="navbar-brand" href="..">Magellan</a>
         </div>
 
         <!-- Expanded navigation -->
@@ -50,20 +50,20 @@
             <ul class="nav navbar-nav">
             
             
+                <li >
+                    <a href="..">Home</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../webapi/">Web API Schema</a>
+                </li>
+            
+            
+            
                 <li class="active">
-                    <a href=".">Home</a>
-                </li>
-            
-            
-            
-                <li >
-                    <a href="webapi/">Web API Schema</a>
-                </li>
-            
-            
-            
-                <li >
-                    <a href="webapitosched/">Web API to Scheduler</a>
+                    <a href="./">Web API to Scheduler</a>
                 </li>
             
             
@@ -71,13 +71,13 @@
 
             <!-- Search, Navigation and Repo links -->
             <ul class="nav navbar-nav navbar-right">
-                <li class="disabled">
-                    <a rel="next" >
+                <li >
+                    <a rel="next" href="../webapi/">
                         <i class="fa fa-arrow-left"></i> Previous
                     </a>
                 </li>
-                <li >
-                    <a rel="prev" href="webapi/">
+                <li class="disabled">
+                    <a rel="prev" >
                         Next <i class="fa fa-arrow-right"></i>
                     </a>
                 </li>
@@ -91,29 +91,22 @@
             <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
-        <li class="main active"><a href="#magellan">Magellan</a></li>
-        
-            <li><a href="#components">Components</a></li>
+        <li class="main active"><a href="#web-api-communication-with-scheduler">Web API Communication With Scheduler</a></li>
         
     
     </ul>
 </div></div>
             <div class="col-md-9" role="main">
 
-<h1 id="magellan">Magellan</h1>
-<p>A Mesos framework for Distributed Simulated Annealing.</p>
-<h2 id="components">Components</h2>
-<h3 id="faleiro-the-scheduler">Faleiro (The Scheduler)</h3>
-<h3 id="enrique-the-executor">Enrique (The Executor)</h3>
-<h3 id="miguel-the-scheduler-cli">Miguel (The Scheduler CLI)</h3>
-<h3 id="victoria-development-environment">Victoria (Development Environment)</h3>
-<h3 id="traveling-sailor-tsp-solver-using-simulated-annealing">Traveling Sailor (TSP Solver using Simulated Annealing)</h3>
-<h3 id="circumnavigator-web-user-interface">Circumnavigator (Web User Interface)</h3></div>
+<h1 id="web-api-communication-with-scheduler">Web API Communication With Scheduler</h1>
+<p>The Web API receives input as documented on the Web API Schema page. It then validates user input as necessary and forwards the input to an instance of the scheduler framework. To create a job, the API forwards the parameters to the <code>MagellanFramework::createJob()</code> method which then returns the created job's ID and returns it to the user making the API request.</p>
+<p>When the user requests data about the running jobs, the web API calls the <code>MagellanFramework::getJobStatus()</code> and <code>MagellanFramework::getAllJobStatuses()</code> for a specific job and for all jobs, respectively. The method calls provide all the info about a job which is then returned to the user.</p>
+<p>The Web API is able to pause, resume, and stop a job. The user makes a request and specificies which action they would like to take. The Web API then makes the appropriate method call to the scheduler framework: <code>MagellanFramework::pauseJob()</code>, <code>MagellanFramework::resumeJob()</code>, and <code>MagellanFramework::stopJob()</code>.</p></div>
         </div>
 
-        <script src="./js/jquery-1.10.2.min.js"></script>
-        <script src="./js/bootstrap-3.0.3.min.js"></script>
-        <script src="./js/highlight.pack.js"></script>
-        <script src="./js/base.js"></script>
+        <script src="../js/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../js/highlight.pack.js"></script>
+        <script src="../js/base.js"></script>
     </body>
 </html>

@@ -61,6 +61,12 @@
                 </li>
             
             
+            
+                <li >
+                    <a href="../webapitosched/">Web API to Scheduler</a>
+                </li>
+            
+            
             </ul>
 
             <!-- Search, Navigation and Repo links -->
@@ -70,8 +76,8 @@
                         <i class="fa fa-arrow-left"></i> Previous
                     </a>
                 </li>
-                <li class="disabled">
-                    <a rel="prev" >
+                <li >
+                    <a rel="prev" href="../webapitosched/">
                         Next <i class="fa fa-arrow-right"></i>
                     </a>
                 </li>
@@ -140,7 +146,7 @@
 <p><code>{job_id}</code> : <em>ID of the job to modify</em></p>
 <p><strong>Request</strong></p>
 <pre><code class="json">{
-    &quot;status&quot; : &quot;start&quot; /* or &quot;stop&quot; or &quot;pause&quot; */
+    &quot;status&quot; : &quot;resume&quot; /* or &quot;stop&quot; or &quot;pause&quot; */
 }
 </code></pre>
 
@@ -162,7 +168,7 @@
 }
 </code></pre>
 
-<p><strong>Response(200)</strong></p>
+<p><strong>Response (200)</strong></p>
 <pre><code class="json">{
     [
         {
@@ -212,7 +218,7 @@
 }
 </code></pre>
 
-<p><strong>Response(200)</strong></p>
+<p><strong>Response (200)</strong></p>
 <pre><code class="json">{
     &quot;job_id&quot; : 42,
     &quot;job_name&quot; : &quot;Solve 99 Problems&quot;,
