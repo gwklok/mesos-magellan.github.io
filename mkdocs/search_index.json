@@ -71,14 +71,39 @@
             "title": "GET /api/job/{job_id}"
         }, 
         {
+            "location": "/scheduler/", 
+            "text": "Faleiro\n\n\nFaleiro is the code name for our scheduler. Our scheduler is controlled from our web api and is responsible for", 
+            "title": "Faleiro"
+        }, 
+        {
+            "location": "/scheduler/#faleiro", 
+            "text": "Faleiro is the code name for our scheduler. Our scheduler is controlled from our web api and is responsible for", 
+            "title": "Faleiro"
+        }, 
+        {
             "location": "/webapitosched/", 
-            "text": "Web API Communication With Scheduler\n\n\nThe Web API receives input as documented on the Web API Schema page. It then validates user input as necessary and forwards the input to an instance of the scheduler framework. To create a job, the API forwards the parameters to the \nMagellanFramework::createJob()\n method which then returns the created job's ID and returns it to the user making the API request.\n\n\nWhen the user requests data about the running jobs, the web API calls the \nMagellanFramework::getJobStatus()\n and \nMagellanFramework::getAllJobStatuses()\n for a specific job and for all jobs, respectively. The method calls provide all the info about a job which is then returned to the user.\n\n\nThe Web API is able to pause, resume, and stop a job. The user makes a request and specificies which action they would like to take. The Web API then makes the appropriate method call to the scheduler framework: \nMagellanFramework::pauseJob()\n, \nMagellanFramework::resumeJob()\n, and \nMagellanFramework::stopJob()\n.", 
+            "text": "Web API Communication With Scheduler\n\n\nCreating a Job\n\n\nThe Web API receives input as documented on the Web API Schema page. It then validates user input as necessary and forwards the input to an instance of the scheduler framework. To create a job, the API forwards the parameters to the \nMagellanFramework::createJob()\n method which then returns the created job's ID and returns it to the user making the API request.\n\n\nGetting Job Status\n\n\nWhen the user requests data about the running jobs, the web API calls the \nMagellanFramework::getJobStatus()\n and \nMagellanFramework::getAllJobStatuses()\n methods for a specific job and for all jobs, respectively. The method calls provide all the info about a job which is then returned to the user.\n\n\nManage a Job\n\n\nThe Web API is able to pause, resume, and stop a job. The user makes a request and specificies which action they would like to take. The Web API then makes the appropriate method call to the scheduler framework: \nMagellanFramework::pauseJob()\n, \nMagellanFramework::resumeJob()\n, and \nMagellanFramework::stopJob()\n.", 
             "title": "Web API to Scheduler"
         }, 
         {
             "location": "/webapitosched/#web-api-communication-with-scheduler", 
-            "text": "The Web API receives input as documented on the Web API Schema page. It then validates user input as necessary and forwards the input to an instance of the scheduler framework. To create a job, the API forwards the parameters to the  MagellanFramework::createJob()  method which then returns the created job's ID and returns it to the user making the API request.  When the user requests data about the running jobs, the web API calls the  MagellanFramework::getJobStatus()  and  MagellanFramework::getAllJobStatuses()  for a specific job and for all jobs, respectively. The method calls provide all the info about a job which is then returned to the user.  The Web API is able to pause, resume, and stop a job. The user makes a request and specificies which action they would like to take. The Web API then makes the appropriate method call to the scheduler framework:  MagellanFramework::pauseJob() ,  MagellanFramework::resumeJob() , and  MagellanFramework::stopJob() .", 
+            "text": "", 
             "title": "Web API Communication With Scheduler"
+        }, 
+        {
+            "location": "/webapitosched/#creating-a-job", 
+            "text": "The Web API receives input as documented on the Web API Schema page. It then validates user input as necessary and forwards the input to an instance of the scheduler framework. To create a job, the API forwards the parameters to the  MagellanFramework::createJob()  method which then returns the created job's ID and returns it to the user making the API request.", 
+            "title": "Creating a Job"
+        }, 
+        {
+            "location": "/webapitosched/#getting-job-status", 
+            "text": "When the user requests data about the running jobs, the web API calls the  MagellanFramework::getJobStatus()  and  MagellanFramework::getAllJobStatuses()  methods for a specific job and for all jobs, respectively. The method calls provide all the info about a job which is then returned to the user.", 
+            "title": "Getting Job Status"
+        }, 
+        {
+            "location": "/webapitosched/#manage-a-job", 
+            "text": "The Web API is able to pause, resume, and stop a job. The user makes a request and specificies which action they would like to take. The Web API then makes the appropriate method call to the scheduler framework:  MagellanFramework::pauseJob() ,  MagellanFramework::resumeJob() , and  MagellanFramework::stopJob() .", 
+            "title": "Manage a Job"
         }
     ]
 }

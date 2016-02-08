@@ -4,7 +4,7 @@
     
     <url>
      <loc>None/</loc>
-     <lastmod>2016-02-07</lastmod>
+     <lastmod>2016-02-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -12,7 +12,15 @@
     
     <url>
      <loc>None/webapi/</loc>
-     <lastmod>2016-02-07</lastmod>
+     <lastmod>2016-02-08</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>None/scheduler/</loc>
+     <lastmod>2016-02-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -20,7 +28,7 @@
     
     <url>
      <loc>None/webapitosched/</loc>
-     <lastmod>2016-02-07</lastmod>
+     <lastmod>2016-02-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
