@@ -8,9 +8,7 @@ Create a new job
 	"job_init_temp" : 200,
 	"job_init_cooling_rate" : 0.2,
 	"job_iterations_per_temp" : 100000,
-	"task_init_temp" : 100,
-	"task_init_cooling_rate" : 0.1,
-	"task_iterations_per_temp" : 10000,
+	"task_time" : 3600,
 	"task_name" : "traveling_sailor",
 	"job_data" : {
 		"problem_size" : 99,
