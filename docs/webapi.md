@@ -137,7 +137,8 @@ Get a specific job by job_id
 }
 ```
 
-**Response (200)**
+**Response (200) - No longer running**  
+**Response (202) - Job still running**
 ```json
 {
     "job_id" : 42,
