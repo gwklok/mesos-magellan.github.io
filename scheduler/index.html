@@ -73,6 +73,12 @@
                 </li>
             
             
+            
+                <li >
+                    <a href="../jobcreationtoexec/">Job Creation to Executor</a>
+                </li>
+            
+            
             </ul>
 
             <!-- Search, Navigation and Repo links -->
@@ -102,12 +108,12 @@
             <li><a href="#using-resource-offers">Using Resource Offers</a></li>
         
     
-        <li class="main "><a href="#picking-parameters-for-new-tasks">Picking parameters for new tasks</a></li>
+        <li class="main "><a href="#picking-parameters-for-new-tasks">Picking Parameters for New Tasks</a></li>
         
             <li><a href="#fenzo">Fenzo</a></li>
         
     
-        <li class="main "><a href="#framework-main-loop">Framework main loop</a></li>
+        <li class="main "><a href="#framework-main-loop">Framework Main Loop</a></li>
         
     
     </ul>
@@ -115,16 +121,16 @@
             <div class="col-md-9" role="main">
 
 <h1 id="faleiro">Faleiro</h1>
-<p>Faleiro is the code name for our scheduler. Our scheduler is controlled from our web api and is responsible for accepting resource offers from the Mesos master, collects tasks to be scheduled from active jobs, and chooses a subset of these jobs to be run on availble resource offers. </p>
+<p>Faleiro is the code name for our scheduler. Our scheduler is controlled from our web api and is responsible for accepting resource offers from the Mesos master, collecting tasks to be scheduled from active jobs, and choosing and running a subset of these jobs on availble resource offers. </p>
 <h2 id="using-resource-offers">Using Resource Offers</h2>
 <p>Mesos master sends resource offers to the scheduler by calling <code>MagellanFramework::resourceOffers()</code> which stores the resource offers in a <code>BlockingQueue</code> which is accessed by Fenzo later.  </p>
-<h1 id="picking-parameters-for-new-tasks">Picking parameters for new tasks</h1>
-<p>The scheduler tells each executor the starting parameters for its simulated annealing algorithm. These parameers include the starting location to start the search, data passed in by the client using the command line client, the name of the specific task we want to import on the executor side (see documentation on executor), and the length of time that we want the executor to run for. Initial temperature, cooling rate and number of iterations per change in temperature are all chosen on the executor side.</p>
+<h1 id="picking-parameters-for-new-tasks">Picking Parameters for New Tasks</h1>
+<p>The scheduler tells each executor the starting parameters for its simulated annealing algorithm. These parameters are formatted as a json string and include information such as the starting location to start the search, data passed in by the client using the command line client, and the name of the specific task we want to import on the executor side (see documentation on executor). The full json list is shown in the Job to Executor document. , and the length of time that we want the executor to run for. The  Initial temperature, cooling rate and number of iterations per change in temperature are all chosen on the executor side.</p>
 <h2 id="fenzo">Fenzo</h2>
-<p>Fenzo is a library provided by Netflix that manages the scheduling and resource managment of tasks we want to execute. On each run of the MagellanFramework main loop, the framework invokes Fenzo by calling <code>TaskScheduler::scheduleOnce()</code> and providing it new resource offers that were placed in a queue by <code>MagellanFramework::resourceOffers()</code>, and new tasks that current, running jobs in the system want executed which is retrieved by calling <code>MagellanJob::getPendingTasks()</code>. If resource offers are not used by fenzo, it keeps hold of them while tasks that were not chosen for schedling by Fenzo are resubmitted to fenzo on the next call to <code>TaskScheduler::scheduleOnce()</code>.</p>
-<h1 id="framework-main-loop">Framework main loop</h1>
-<p>The main loop of the MagellanFramework is run in a separate thread which calls the function MagellanFramework::runFramework(). This function first loops through the list of running jobs in the system and calls <code>MagellanJob::getPendingTasks()</code> on each job to get a list of tasks it wants to schedule. It then gives this list to Fenzo by calling <code>TaskScheduler::scheduleOnce()</code> and it receives a mapping between resource offers and tasks. If some of the tasks are not selected to be scheduled by Fenzo, then the remaining tasks are retained by the Framework and are submitted to Fenzo again during the next iteration. </p>
-<p>After receiving the scheduling suggestions by Fenzo,the the framework then prepares each task by creating a <code>TaskInfo</code> object which contains information such as the slave ID and task data. Tasks are scheduled on a per Host (node) basis. Hosts are specified using the <code>VMAssignmentResult</code> object and can offer multiple resource offers (called <code>leases</code> in the code). A list of all TaskInfo object for each host is created in an object called <code>taskInfos</code>. Additionally, a list of all the resource offer ids that will be used on the particular host are created and stored in a list called <code>offerIDs</code>. Once the <code>taskInfos</code> and <code>offerIDs</code> objects are populated, they are submitted to the mesos driver using the method, <code>MesosSchedulerDriver::launchTasks()</code>. The mesos driver is then responsible for getting the tasks to their corresponding executor.</p></div>
+<p>Fenzo is a library provided by Netflix that manages the scheduling and resource managment of tasks we want to execute. On each run of the MagellanFramework main loop, the framework invokes Fenzo by calling <code>TaskScheduler::scheduleOnce()</code> and providing it with a list of resource offers and tasks. The resource offers are taken from the queue where they were placed by <code>MagellanFramework::resourceOffers()</code>. The list of tasks to run is attained by calling <code>MagellanJob::getPendingTasks()</code>. If resource offers are not used by fenzo, it keeps hold of them and are used on the next call to <code>TaskScheduler::scheduleOnce()</code>.</p>
+<h1 id="framework-main-loop">Framework Main Loop</h1>
+<p>The main loop of the MagellanFramework is run in a separate thread which calls the function <code>MagellanFramework::runFramework()</code>. This function first loops through the list of running jobs in the system and calls <code>MagellanJob::getPendingTasks()</code> on each job to get a list of tasks it wants to schedule. It then gives this list to Fenzo by calling <code>TaskScheduler::scheduleOnce()</code> and receives a mapping between resource offers and tasks. If some of the tasks are not selected to be scheduled by Fenzo, then the remaining tasks are retained by the Framework and are submitted to Fenzo again during the next iteration. </p>
+<p>After receiving the scheduling suggestions by Fenzo,the the framework then prepares each task by creating a <code>TaskInfo</code> object which contains information such as the slave ID and task data. Tasks are scheduled on a per Host (node) basis. Hosts are specified using the <code>VMAssignmentResult</code> object and can offer multiple resource offers (called <code>leases</code> in the code). A list of all TaskInfo object for each host is created in an object called <code>taskInfos</code>. Additionally, a list of all the resource offer ids that will be used on the particular host are created and stored in a list called <code>offerIDs</code>. Once the <code>taskInfos</code> and <code>offerIDs</code> objects are populated, they are submitted to the mesos driver using the method, <code>MesosSchedulerDriver::launchTasks()</code>. The mesos driver is responsible for getting the tasks to their corresponding executor.</p></div>
         </div>
 
         <script src="../js/jquery-1.10.2.min.js"></script>
