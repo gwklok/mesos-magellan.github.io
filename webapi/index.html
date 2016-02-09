@@ -121,10 +121,20 @@
     &quot;job_init_temp&quot; : 200,
     &quot;job_init_cooling_rate&quot; : 0.2,
     &quot;job_iterations_per_temp&quot; : 100000,
-    &quot;task_init_temp&quot; : 100,
-    &quot;task_init_cooling_rate&quot; : 0.1,
-    &quot;task_iterations_per_temp&quot; : 10000,
-    &quot;executor_path&quot; : &quot;enrique&quot;
+    &quot;task_time&quot; : 3600,
+    &quot;task_name&quot; : &quot;traveling_sailor&quot;,
+    &quot;job_data&quot; : {
+        &quot;problem_size&quot; : 99,
+        &quot;expected_solution&quot; : 0,
+        &quot;anything_i_want&quot; : {
+            &quot;all_my_things&quot; : [
+                &quot;cat&quot;,
+                4096,
+                &quot;dogs&quot;,
+                &quot;foo&quot;
+            ]
+        }
+    }
 }
 </code></pre>
 
@@ -224,7 +234,8 @@
 }
 </code></pre>
 
-<p><strong>Response (200)</strong></p>
+<p><strong>Response (200) - No longer running</strong><br />
+<strong>Response (202) - Job still running</strong></p>
 <pre><code class="json">{
     &quot;job_id&quot; : 42,
     &quot;job_name&quot; : &quot;Solve 99 Problems&quot;,

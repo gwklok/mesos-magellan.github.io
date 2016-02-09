@@ -99,13 +99,20 @@
     
         <li class="main active"><a href="#faleiro">Faleiro</a></li>
         
+            <li><a href="#using-resource-offers">Using Resource Offers</a></li>
+        
+            <li><a href="#picking-new-tasks">Picking new tasks</a></li>
+        
     
     </ul>
 </div></div>
             <div class="col-md-9" role="main">
 
 <h1 id="faleiro">Faleiro</h1>
-<p>Faleiro is the code name for our scheduler. Our scheduler is controlled from our web api and is responsible for </p></div>
+<p>Faleiro is the code name for our scheduler. Our scheduler is controlled from our web api and is responsible for accepting resource offers from the Mesos master, collects tasks to be scheduled from active jobs, and chooses a subset of these jobs to be run on availble resource offers. </p>
+<h2 id="using-resource-offers">Using Resource Offers</h2>
+<p>Mesos master sends resource offers to the scheduler by calling <code>MagellanFramework::resourceOffers()</code> which stores is in a <code>BlockingQueue</code> which is accessed by Fenzo later. </p>
+<h2 id="picking-new-tasks">Picking new tasks</h2></div>
         </div>
 
         <script src="../js/jquery-1.10.2.min.js"></script>
