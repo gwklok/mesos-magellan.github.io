@@ -2,8 +2,8 @@ site_name: Magellan
 theme: cyborg
 pages:
 - Home : index.md
-- Web API Schema: webapi.md
-- Faleiro: scheduler.md
-- Web API to Scheduler: webapitosched.md
-- Job Creation to Executor: jobcreationtoexec.md
-- Web UI: webui.md
+- Components: components.md
+- Communication: comm.md
+- Architecture: arch.md
+- Testing : test.md
+- Demo: demo.md
