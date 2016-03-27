@@ -5,12 +5,9 @@ Create a new job
 ```json
 {
 	"job_name" : "Solve 99 Problems",
-	"job_init_temp" : 200,
-	"job_init_cooling_rate" : 0.2,
-	"job_iterations_per_temp" : 100000,
-	"task_time" : 3600,
-	"task_name" : "traveling_sailor",
-	"job_data" : {
+	"job_time" : 3600,
+	"module_url" : "git@github.com:mesos-magellan/faleiro.git",
+	"module_data" : {
 		"problem_size" : 99,
 		"expected_solution" : 0,
 		"anything_i_want" : {
@@ -85,40 +82,52 @@ Get all the jobs
 **Response (200)**
 ```json
 {
-    [
-    	{
-	        "job_id" : 42,
-	        "job_name" : "Solve 99 Problems",
-	        "job_starting_temp" : 200,
-	        "job_cooling_rate" : 0.2,
-	        "job_count" : 10,
-	        "task_starting_temp" : 100,
-	        "task_cooling_rate" : 0.1,
-	        "task_count" : 10,
-	        "best_location" : "{ \"path\" : \"SUJENAGHWOPQ\" }",
-	        "best_energy" : 400.5,
-	        "energy_history" : [
+	[
+		{
+			"job_id" : 42,
+			"job_name" : "Solve 99 Problems",
+			"job_starting_time" : 112385801,
+			"task_name" : "git@github.com:mesos-magellan/faleiro.git",
+			"task_seconds" : 500,
+			"current_state" : "RUNNING",
+			"best_location" : "{ \"path\" : \"SUJENAGHWOPQ\" }",
+			"best_energy" : 400.5,
+			"num_finished_tasks" : 91,
+			"num_total_tasks" : 99,
+			"energy_history" : [
 				0.2,
 				400.5,
 				10.122
-			]
+			],
+			"additional_params" : {
+				"start" : {
+					"X" : 356,
+					"name" : "foo"
+				}
+			}
 		},
-    	{
-	        "job_id" : 47,
-	        "job_name" : "Solve All Problems",
-	        "job_starting_temp" : 250,
-	        "job_cooling_rate" : 0.6,
-	        "job_count" : 32,
-	        "task_starting_temp" : 80,
-	        "task_cooling_rate" : 0.8,
-	        "task_count" : 100,
-	        "best_location" : "{ \"index\" : 2345093 }",
-	        "best_energy" : 12039454,
-	        "energy_history" : [
+		{
+			"job_id" : 47,
+			"job_name" : "Solve All Problems",
+			"job_starting_time" : 112385801,
+			"task_name" : "git@github.com:mesos-magellan/faleiro.git",
+			"task_seconds" : 600,
+			"current_state" : "STOP",
+			"best_location" : "{ \"index\" : 2345093 }",
+			"best_energy" : 12039454,
+			"num_finished_tasks" : 42,
+			"num_total_tasks" : 123,
+			"energy_history" : [
 				947345,
 				3302,
 				12039454
-			]
+			],
+			"additional_params" : {
+				"start" : {
+					"X" : 50,
+					"name" : "hello world"
+				}
+			}
 		}
 	]
 }
@@ -141,21 +150,27 @@ Get a specific job by job_id
 **Response (202) - Job still running**
 ```json
 {
-    "job_id" : 42,
-    "job_name" : "Solve 99 Problems",
-    "job_starting_temp" : 200,
-    "job_cooling_rate" : 0.2,
-    "job_count" : 10,
-    "task_starting_temp" : 100,
-    "task_cooling_rate" : 0.1,
-    "task_count" : 10,
-    "best_location" : "{ \"path\" : \"SUJENAGHWOPQ\" }",
-    "best_energy" : 400.5,
-    "energy_history" : [
-		0.2,
-		400.5,
-		10.122
-	]
+	"job_id" : 47,
+	"job_name" : "Solve All Problems",
+	"job_starting_time" : 112385801,
+	"task_name" : "git@github.com:mesos-magellan/faleiro.git",
+	"task_seconds" : 600,
+	"current_state" : "STOP",
+	"best_location" : "{ \"index\" : 2345093 }",
+	"best_energy" : 12039454,
+	"num_finished_tasks" : 42,
+	"num_total_tasks" : 123,
+	"energy_history" : [
+		947345,
+		3302,
+		12039454
+	],
+	"additional_params" : {
+		"start" : {
+			"X" : 50,
+			"name" : "hello world"
+		}
+	}
 }
 ```
 
