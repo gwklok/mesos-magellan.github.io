@@ -44,3 +44,10 @@ The response from the executor is the following JSON string:
 }
 ```
 This JSON string cotains the unique identifier for the task, the best solution it discovered, and the fitness or energy score of the best solution. This data is passed to and processed by the MagellanJob from which it originated.  If the energy of this data is better than the global best energy, then we update our global best fitness value and location value. Currently, new tasks start their searches with the global best values but by the final product, we hope to implement a meta annealing scheduler where the scheduler itself performs simulated annealing to choose starting locations for new tasks.
+
+In case of a failed task, the following body will be returned with a TASK_FAILED status:
+```
+{
+    "error": <stacktrace>
+}
+```
