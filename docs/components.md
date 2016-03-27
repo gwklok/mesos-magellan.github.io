@@ -20,7 +20,7 @@ The Web API receives input as documented on the Web API Schema page. It then val
 
 ### Getting Job Status
 
-When the user requests data about the running jobs, the web API calls the `MagellanFramework::getJobStatus()` and `MagellanFramework::getAllJobStatuses()` methods for a specific job and for all jobs, respectively. The method calls provide all the info about a job which is then returned to the user.
+When the user requests data about the running jobs, the web API calls the `MagellanFramework::getSimpleJobStatus()` and `MagellanFramework::getSimpleAllJobStatuses()` methods for a specific job and for all jobs, respectively. The method calls provide all the info about a job which is then returned to the user.
 
 ### Manage a Job
 
