@@ -130,12 +130,9 @@
 <p><strong>Request</strong></p>
 <pre><code class="json">{
     &quot;job_name&quot; : &quot;Solve 99 Problems&quot;,
-    &quot;job_init_temp&quot; : 200,
-    &quot;job_init_cooling_rate&quot; : 0.2,
-    &quot;job_iterations_per_temp&quot; : 100000,
-    &quot;task_time&quot; : 3600,
-    &quot;task_name&quot; : &quot;traveling_sailor&quot;,
-    &quot;job_data&quot; : {
+    &quot;job_time&quot; : 3600,
+    &quot;module_url&quot; : &quot;git@github.com:mesos-magellan/faleiro.git&quot;,
+    &quot;module_data&quot; : {
         &quot;problem_size&quot; : 99,
         &quot;expected_solution&quot; : 0,
         &quot;anything_i_want&quot; : {
@@ -202,36 +199,48 @@
         {
             &quot;job_id&quot; : 42,
             &quot;job_name&quot; : &quot;Solve 99 Problems&quot;,
-            &quot;job_starting_temp&quot; : 200,
-            &quot;job_cooling_rate&quot; : 0.2,
-            &quot;job_count&quot; : 10,
-            &quot;task_starting_temp&quot; : 100,
-            &quot;task_cooling_rate&quot; : 0.1,
-            &quot;task_count&quot; : 10,
+            &quot;job_starting_time&quot; : 112385801,
+            &quot;task_name&quot; : &quot;git@github.com:mesos-magellan/faleiro.git&quot;,
+            &quot;task_seconds&quot; : 500,
+            &quot;current_state&quot; : &quot;RUNNING&quot;,
             &quot;best_location&quot; : &quot;{ \&quot;path\&quot; : \&quot;SUJENAGHWOPQ\&quot; }&quot;,
             &quot;best_energy&quot; : 400.5,
+            &quot;num_finished_tasks&quot; : 91,
+            &quot;num_total_tasks&quot; : 99,
             &quot;energy_history&quot; : [
                 0.2,
                 400.5,
                 10.122
-            ]
+            ],
+            &quot;additional_params&quot; : {
+                &quot;start&quot; : {
+                    &quot;X&quot; : 356,
+                    &quot;name&quot; : &quot;foo&quot;
+                }
+            }
         },
         {
             &quot;job_id&quot; : 47,
             &quot;job_name&quot; : &quot;Solve All Problems&quot;,
-            &quot;job_starting_temp&quot; : 250,
-            &quot;job_cooling_rate&quot; : 0.6,
-            &quot;job_count&quot; : 32,
-            &quot;task_starting_temp&quot; : 80,
-            &quot;task_cooling_rate&quot; : 0.8,
-            &quot;task_count&quot; : 100,
+            &quot;job_starting_time&quot; : 112385801,
+            &quot;task_name&quot; : &quot;git@github.com:mesos-magellan/faleiro.git&quot;,
+            &quot;task_seconds&quot; : 600,
+            &quot;current_state&quot; : &quot;STOP&quot;,
             &quot;best_location&quot; : &quot;{ \&quot;index\&quot; : 2345093 }&quot;,
             &quot;best_energy&quot; : 12039454,
+            &quot;num_finished_tasks&quot; : 42,
+            &quot;num_total_tasks&quot; : 123,
             &quot;energy_history&quot; : [
                 947345,
                 3302,
                 12039454
-            ]
+            ],
+            &quot;additional_params&quot; : {
+                &quot;start&quot; : {
+                    &quot;X&quot; : 50,
+                    &quot;name&quot; : &quot;hello world&quot;
+                }
+            }
         }
     ]
 }
@@ -249,21 +258,27 @@
 <p><strong>Response (200) - No longer running</strong><br />
 <strong>Response (202) - Job still running</strong></p>
 <pre><code class="json">{
-    &quot;job_id&quot; : 42,
-    &quot;job_name&quot; : &quot;Solve 99 Problems&quot;,
-    &quot;job_starting_temp&quot; : 200,
-    &quot;job_cooling_rate&quot; : 0.2,
-    &quot;job_count&quot; : 10,
-    &quot;task_starting_temp&quot; : 100,
-    &quot;task_cooling_rate&quot; : 0.1,
-    &quot;task_count&quot; : 10,
-    &quot;best_location&quot; : &quot;{ \&quot;path\&quot; : \&quot;SUJENAGHWOPQ\&quot; }&quot;,
-    &quot;best_energy&quot; : 400.5,
+    &quot;job_id&quot; : 47,
+    &quot;job_name&quot; : &quot;Solve All Problems&quot;,
+    &quot;job_starting_time&quot; : 112385801,
+    &quot;task_name&quot; : &quot;git@github.com:mesos-magellan/faleiro.git&quot;,
+    &quot;task_seconds&quot; : 600,
+    &quot;current_state&quot; : &quot;STOP&quot;,
+    &quot;best_location&quot; : &quot;{ \&quot;index\&quot; : 2345093 }&quot;,
+    &quot;best_energy&quot; : 12039454,
+    &quot;num_finished_tasks&quot; : 42,
+    &quot;num_total_tasks&quot; : 123,
     &quot;energy_history&quot; : [
-        0.2,
-        400.5,
-        10.122
-    ]
+        947345,
+        3302,
+        12039454
+    ],
+    &quot;additional_params&quot; : {
+        &quot;start&quot; : {
+            &quot;X&quot; : 50,
+            &quot;name&quot; : &quot;hello world&quot;
+        }
+    }
 }
 </code></pre>
 
@@ -273,12 +288,6 @@
 }
 </code></pre></div>
         </div>
-
-        <footer class="col-md-12">
-            <hr>
-            
-            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</center>
-        </footer>
 
         <script src="../js/jquery-1.10.2.min.js"></script>
         <script src="../js/bootstrap-3.0.3.min.js"></script>
