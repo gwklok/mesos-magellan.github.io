@@ -9,7 +9,7 @@
         
         <link rel="shortcut icon" href="../img/favicon.ico">
 
-	<title>Web UI - Magellan</title>
+	<title>Architecture - Magellan</title>
 
         <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
@@ -57,31 +57,31 @@
             
             
                 <li >
-                    <a href="../webapi/">Web API Schema</a>
+                    <a href="../components/">Components</a>
                 </li>
             
             
             
                 <li >
-                    <a href="../scheduler/">Faleiro</a>
-                </li>
-            
-            
-            
-                <li >
-                    <a href="../webapitosched/">Web API to Scheduler</a>
-                </li>
-            
-            
-            
-                <li >
-                    <a href="../jobcreationtoexec/">Job Creation to Executor</a>
+                    <a href="../comm/">Communication</a>
                 </li>
             
             
             
                 <li class="active">
-                    <a href="./">Web UI</a>
+                    <a href="./">Architecture</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../test/">Testing</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../demo/">Demo</a>
                 </li>
             
             
@@ -90,12 +90,12 @@
             <!-- Search, Navigation and Repo links -->
             <ul class="nav navbar-nav navbar-right">
                 <li >
-                    <a rel="next" href="../jobcreationtoexec/">
+                    <a rel="next" href="../comm/">
                         <i class="fa fa-arrow-left"></i> Previous
                     </a>
                 </li>
-                <li class="disabled">
-                    <a rel="prev" >
+                <li >
+                    <a rel="prev" href="../test/">
                         Next <i class="fa fa-arrow-right"></i>
                     </a>
                 </li>
@@ -109,18 +109,14 @@
             <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
-        <li class="main active"><a href="#the-web-user-interface-circumnavigator">The Web User Interface (Circumnavigator)</a></li>
+        <li class="main active"><a href="#architecture">Architecture</a></li>
         
     
     </ul>
 </div></div>
             <div class="col-md-9" role="main">
 
-<h1 id="the-web-user-interface-circumnavigator">The Web User Interface (Circumnavigator)</h1>
-<p>The Web User Interface (UI) allows users to create, manage, and monitor jobs. It is built using jQuery, Bootstrap and pure.js. To connect to the scheduler API, AJAX calls are made to create, modify and retrieve jobs. Bootstrap was used for quick styling and ensuring consistent functionality and appearence across different devices and browsers. pure.js allowed for templating HTML code with scheduler API data.</p>
-<p>There are 3 pages to the web UI: Job List (home page), Create a Job, and Job Details. Each page has its own JavaScript file in the js folder, as well as a global script file: script.js, which holds global functions and data. The job list and job details pages auto-refresh periodically to keep the user updated with accurate information. The create a job page validates the user's input, providing feedback on incorrect fields, and redirects the user to the job details page for the job they create.</p>
-<p>State-based colour feedback is used throughout the UI. Based on the status of the job, different elements will have different colours or be hidden. The progress bar's appearance differs based on state in colour, animation, and style. When the job is in a state that could allow for completion (RUNNING or PAUSED), the progress bar is animated with moving stripes. When the job is in a state where it is incomplete and will not be able to be completed (STOP or FAILED), the progress bar is no longer animated but is still striped. Once the job is DONE, the progress bar is a solid green. The progress bars have a minimum width to correctly display the progress percentage when the values are low. The action buttons on the job details page are dynamic to the state as well. Their colours correspond to the actions they perform and will be hidden if their action is not valid for the current state.</p>
-<p>The job list is ordered from newest to oldest descending with all stored jobs being displayed. The status and progress bars are styled as described above.</p></div>
+<h1 id="architecture">Architecture</h1></div>
         </div>
 
         <script src="../js/jquery-1.10.2.min.js"></script>

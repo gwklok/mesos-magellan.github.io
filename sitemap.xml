@@ -4,47 +4,47 @@
     
     <url>
      <loc>None/</loc>
-     <lastmod>2016-03-26</lastmod>
+     <lastmod>2016-03-27</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
 
     
     <url>
-     <loc>None/webapi/</loc>
-     <lastmod>2016-03-26</lastmod>
+     <loc>None/components/</loc>
+     <lastmod>2016-03-27</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
 
     
     <url>
-     <loc>None/scheduler/</loc>
-     <lastmod>2016-03-26</lastmod>
+     <loc>None/comm/</loc>
+     <lastmod>2016-03-27</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
 
     
     <url>
-     <loc>None/webapitosched/</loc>
-     <lastmod>2016-03-26</lastmod>
+     <loc>None/arch/</loc>
+     <lastmod>2016-03-27</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
 
     
     <url>
-     <loc>None/jobcreationtoexec/</loc>
-     <lastmod>2016-03-26</lastmod>
+     <loc>None/test/</loc>
+     <lastmod>2016-03-27</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
 
     
     <url>
-     <loc>None/webui/</loc>
-     <lastmod>2016-03-26</lastmod>
+     <loc>None/demo/</loc>
+     <lastmod>2016-03-27</lastmod>
      <changefreq>daily</changefreq>
     </url>
     

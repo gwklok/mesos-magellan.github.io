@@ -9,7 +9,7 @@
         
         <link rel="shortcut icon" href="../img/favicon.ico">
 
-	<title>Job Creation to Executor - Magellan</title>
+	<title>Communication - Magellan</title>
 
         <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
@@ -57,31 +57,31 @@
             
             
                 <li >
-                    <a href="../webapi/">Web API Schema</a>
-                </li>
-            
-            
-            
-                <li >
-                    <a href="../scheduler/">Faleiro</a>
-                </li>
-            
-            
-            
-                <li >
-                    <a href="../webapitosched/">Web API to Scheduler</a>
+                    <a href="../components/">Components</a>
                 </li>
             
             
             
                 <li class="active">
-                    <a href="./">Job Creation to Executor</a>
+                    <a href="./">Communication</a>
                 </li>
             
             
             
                 <li >
-                    <a href="../webui/">Web UI</a>
+                    <a href="../arch/">Architecture</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../test/">Testing</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../demo/">Demo</a>
                 </li>
             
             
@@ -90,12 +90,12 @@
             <!-- Search, Navigation and Repo links -->
             <ul class="nav navbar-nav navbar-right">
                 <li >
-                    <a rel="next" href="../webapitosched/">
+                    <a rel="next" href="../components/">
                         <i class="fa fa-arrow-left"></i> Previous
                     </a>
                 </li>
                 <li >
-                    <a rel="prev" href="../webui/">
+                    <a rel="prev" href="../arch/">
                         Next <i class="fa fa-arrow-right"></i>
                     </a>
                 </li>
@@ -109,25 +109,190 @@
             <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
-        <li class="main active"><a href="#job-creation-to-executor">Job Creation to Executor</a></li>
+        <li class="main active"><a href="#communication">Communication</a></li>
         
-            <li><a href="#client-starts-job">Client Starts Job</a></li>
+            <li><a href="#the-scheduler-api-schema">The Scheduler API Schema</a></li>
         
-            <li><a href="#the-web-api">The Web API</a></li>
-        
-            <li><a href="#the-magellan-framework">The Magellan Framework</a></li>
+            <li><a href="#job-creation-to-executor">Job Creation to Executor</a></li>
         
     
     </ul>
 </div></div>
             <div class="col-md-9" role="main">
 
-<h1 id="job-creation-to-executor">Job Creation to Executor</h1>
-<h2 id="client-starts-job">Client Starts Job</h2>
+<h1 id="communication">Communication</h1>
+<p>Description of the communication between the different components of the Magellan Mesos Framework.</p>
+<h2 id="the-scheduler-api-schema">The Scheduler API Schema</h2>
+<p>The following REST API schema is used by the Web UI to communicate with the scheduler back end.</p>
+<h3 id="post-apijob">POST /api/job</h3>
+<p>Create a new job</p>
+<p><strong>Request</strong></p>
+<pre><code class="json">{
+    &quot;job_name&quot; : &quot;Solve 99 Problems&quot;,
+    &quot;job_time&quot; : 3600,
+    &quot;module_url&quot; : &quot;git@github.com:mesos-magellan/faleiro.git&quot;,
+    &quot;module_data&quot; : {
+        &quot;problem_size&quot; : 99,
+        &quot;expected_solution&quot; : 0,
+        &quot;anything_i_want&quot; : {
+            &quot;all_my_things&quot; : [
+                &quot;cat&quot;,
+                4096,
+                &quot;dogs&quot;,
+                &quot;foo&quot;
+            ]
+        }
+    }
+}
+</code></pre>
+
+<p><strong>Response (200)</strong></p>
+<pre><code class="json">{
+    &quot;job_id&quot; : 42
+}
+</code></pre>
+
+<p><strong>Response (422)</strong></p>
+<pre><code class="json">{
+    &quot;message&quot; : &quot;A parameter is missing&quot;
+}
+</code></pre>
+
+<p><strong>Response (500)</strong></p>
+<pre><code class="json">{
+    &quot;message&quot; : &quot;Failed to create job&quot;
+}
+</code></pre>
+
+<h3 id="put-apijobjob_idstatus">PUT /api/job/{job_id}/status</h3>
+<p>Set the status of an existing job</p>
+<p><strong>Parameters</strong></p>
+<p><code>{job_id}</code> : <em>ID of the job to modify</em></p>
+<p><strong>Request</strong></p>
+<pre><code class="json">{
+    &quot;status&quot; : &quot;resume&quot; /* or &quot;stop&quot; or &quot;pause&quot; */
+}
+</code></pre>
+
+<p><strong>Response (200)</strong></p>
+<pre><code class="json">{
+}
+</code></pre>
+
+<p><strong>Response (422)</strong></p>
+<pre><code class="json">{
+    &quot;message&quot; : &quot;A parameter is missing&quot;
+}
+</code></pre>
+
+<h3 id="get-apijobs">GET /api/jobs</h3>
+<p>Get all the jobs</p>
+<p><strong>Request</strong></p>
+<pre><code class="json">{
+}
+</code></pre>
+
+<p><strong>Response (200)</strong></p>
+<pre><code class="json">{
+    [
+        {
+            &quot;job_id&quot; : 42,
+            &quot;job_name&quot; : &quot;Solve 99 Problems&quot;,
+            &quot;job_starting_time&quot; : 112385801,
+            &quot;task_name&quot; : &quot;git@github.com:mesos-magellan/faleiro.git&quot;,
+            &quot;task_seconds&quot; : 500,
+            &quot;current_state&quot; : &quot;RUNNING&quot;,
+            &quot;best_location&quot; : &quot;{ \&quot;path\&quot; : \&quot;SUJENAGHWOPQ\&quot; }&quot;,
+            &quot;best_energy&quot; : 400.5,
+            &quot;num_finished_tasks&quot; : 91,
+            &quot;num_total_tasks&quot; : 99,
+            &quot;energy_history&quot; : [
+                0.2,
+                400.5,
+                10.122
+            ],
+            &quot;additional_params&quot; : {
+                &quot;start&quot; : {
+                    &quot;X&quot; : 356,
+                    &quot;name&quot; : &quot;foo&quot;
+                }
+            }
+        },
+        {
+            &quot;job_id&quot; : 47,
+            &quot;job_name&quot; : &quot;Solve All Problems&quot;,
+            &quot;job_starting_time&quot; : 112385801,
+            &quot;task_name&quot; : &quot;git@github.com:mesos-magellan/faleiro.git&quot;,
+            &quot;task_seconds&quot; : 600,
+            &quot;current_state&quot; : &quot;STOP&quot;,
+            &quot;best_location&quot; : &quot;{ \&quot;index\&quot; : 2345093 }&quot;,
+            &quot;best_energy&quot; : 12039454,
+            &quot;num_finished_tasks&quot; : 42,
+            &quot;num_total_tasks&quot; : 123,
+            &quot;energy_history&quot; : [
+                947345,
+                3302,
+                12039454
+            ],
+            &quot;additional_params&quot; : {
+                &quot;start&quot; : {
+                    &quot;X&quot; : 50,
+                    &quot;name&quot; : &quot;hello world&quot;
+                }
+            }
+        }
+    ]
+}
+</code></pre>
+
+<h3 id="get-apijobjob_id">GET /api/job/{job_id}</h3>
+<p>Get a specific job by job_id</p>
+<p><strong>Parameters</strong></p>
+<p><code>{job_id}</code> : <em>ID of the job to retrieve</em></p>
+<p><strong>Request</strong></p>
+<pre><code class="json">{
+}
+</code></pre>
+
+<p><strong>Response (200) - No longer running</strong><br />
+<strong>Response (202) - Job still running</strong></p>
+<pre><code class="json">{
+    &quot;job_id&quot; : 47,
+    &quot;job_name&quot; : &quot;Solve All Problems&quot;,
+    &quot;job_starting_time&quot; : 112385801,
+    &quot;task_name&quot; : &quot;git@github.com:mesos-magellan/faleiro.git&quot;,
+    &quot;task_seconds&quot; : 600,
+    &quot;current_state&quot; : &quot;STOP&quot;,
+    &quot;best_location&quot; : &quot;{ \&quot;index\&quot; : 2345093 }&quot;,
+    &quot;best_energy&quot; : 12039454,
+    &quot;num_finished_tasks&quot; : 42,
+    &quot;num_total_tasks&quot; : 123,
+    &quot;energy_history&quot; : [
+        947345,
+        3302,
+        12039454
+    ],
+    &quot;additional_params&quot; : {
+        &quot;start&quot; : {
+            &quot;X&quot; : 50,
+            &quot;name&quot; : &quot;hello world&quot;
+        }
+    }
+}
+</code></pre>
+
+<p><strong>Response (422)</strong></p>
+<pre><code class="json">{
+    &quot;message&quot; : &quot;A parameter is missing&quot;
+}
+</code></pre>
+
+<h2 id="job-creation-to-executor">Job Creation to Executor</h2>
+<h3 id="client-starts-job">Client Starts Job</h3>
 <p>The client starts a job using the command line interface. Using the CLI, they can specify the parameters for their job. The full list of parameters can be found on the Web API page. After creating a job on the command line client, the request is sent to the Web API using http.</p>
-<h2 id="the-web-api">The Web API</h2>
+<h3 id="the-web-api">The Web API</h3>
 <p>The web api handles the request from the CLI and forwards this request to the MagellanFramework using the function call <code>MagellanFramework::createJob()</code>. </p>
-<h2 id="the-magellan-framework">The Magellan Framework</h2>
+<h3 id="the-magellan-framework">The Magellan Framework</h3>
 <p>Internally, the Magellan Framework constructs a MagellanJob object. A MagellanJob, at a high level, represents all data and state corresponding to a problem that the client wants to solve. The MagellanJob breaks this problem into subproblems called tasks which are run on executors. An instance of the Magellan Framework can have multiple instances of MagellanJob with each instance having several tasks associated with it that can be run in parallel.  After creating the MagellanJob object, the framework calls <code>MagellanJob::start()</code> which executes the main function of the Job, called <code>MagellanJob::run()</code>, in a separate thread. </p>
 <p>A MagellanJob is responsible for partioning the search space of the problem and creating tasks which run on executors and report their results back to the job. MagellanJobs are restricted to creating 10 active tasks at a time to ensure that this system scales well when a lot of jobs are submitted simultaneously. New tasks are submitted to a BlockingQueue called <code>pendingTasks</code>. This object holds ready tasks until the MagellanFramework requests them using the method <code>MagellanJob::getPendingTasks()</code>. After executing tasks, the results are returned to the Job to be processed using the method, <code>MagellanJob::processIncomingMessages()</code>. </p>
 <p>The scheduler sends the following JSON string to the executor as part of the tasks payload: </p>
