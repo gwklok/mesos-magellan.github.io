@@ -15,11 +15,16 @@ A MagellanJob is responsible for partioning the search space of the problem and 
 The scheduler sends the following JSON string to the executor as part of the tasks payload: 
 ```
 {
-	"uid":
-	"location":
-	"job_data":
-	"task_name":
-	"task_seconds":
+    # required
+    "uid":
+    "name":
+    "command":
+    "problem_data":
+    # for 'divisions' command
+    "divisions":
+    # for 'anneal' command
+    "sstates":
+    "minutes_per_division":
 }
 ```
 As you can see, each task only sends a unique identifier for the task, the starting location for the simulated annealing (SA) algorithm, the name of the SA implementation we want to use to execute the task, how long the task should take and additional parameters passed in by the client as arguments.  The  initial temperature, cooling rate and number of iterations per change in temperature that are detrimental to the SA algorithm are not given and are all chosen on the executor side. See the executor document for details.
@@ -31,8 +36,11 @@ The response from the executor is the following JSON string:
 ```
 {
 	"uid":
+    # for anneal
 	"best_location":
 	"fitness_score":
+    # for divisions
+    "divisions":
 }
 ```
 This JSON string cotains the unique identifier for the task, the best solution it discovered, and the fitness or energy score of the best solution. This data is passed to and processed by the MagellanJob from which it originated.  If the energy of this data is better than the global best energy, then we update our global best fitness value and location value. Currently, new tasks start their searches with the global best values but by the final product, we hope to implement a meta annealing scheduler where the scheduler itself performs simulated annealing to choose starting locations for new tasks.
