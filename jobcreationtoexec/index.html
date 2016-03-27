@@ -132,11 +132,16 @@
 <p>A MagellanJob is responsible for partioning the search space of the problem and creating tasks which run on executors and report their results back to the job. MagellanJobs are restricted to creating 10 active tasks at a time to ensure that this system scales well when a lot of jobs are submitted simultaneously. New tasks are submitted to a BlockingQueue called <code>pendingTasks</code>. This object holds ready tasks until the MagellanFramework requests them using the method <code>MagellanJob::getPendingTasks()</code>. After executing tasks, the results are returned to the Job to be processed using the method, <code>MagellanJob::processIncomingMessages()</code>. </p>
 <p>The scheduler sends the following JSON string to the executor as part of the tasks payload: </p>
 <pre><code>{
+    # required
     &quot;uid&quot;:
-    &quot;location&quot;:
-    &quot;job_data&quot;:
-    &quot;task_name&quot;:
-    &quot;task_seconds&quot;:
+    &quot;name&quot;:
+    &quot;command&quot;:
+    &quot;problem_data&quot;:
+    # for 'divisions' command
+    &quot;divisions&quot;:
+    # for 'anneal' command
+    &quot;sstates&quot;:
+    &quot;minutes_per_division&quot;:
 }
 </code></pre>
 
@@ -145,13 +150,22 @@
 <p>The response from the executor is the following JSON string:</p>
 <pre><code>{
     &quot;uid&quot;:
+    # for anneal
     &quot;best_location&quot;:
     &quot;fitness_score&quot;:
+    # for divisions
+    &quot;divisions&quot;:
 }
 </code></pre>
 
 <p>This JSON string cotains the unique identifier for the task, the best solution it discovered, and the fitness or energy score of the best solution. This data is passed to and processed by the MagellanJob from which it originated.  If the energy of this data is better than the global best energy, then we update our global best fitness value and location value. Currently, new tasks start their searches with the global best values but by the final product, we hope to implement a meta annealing scheduler where the scheduler itself performs simulated annealing to choose starting locations for new tasks.</p></div>
         </div>
+
+        <footer class="col-md-12">
+            <hr>
+            
+            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</center>
+        </footer>
 
         <script src="../js/jquery-1.10.2.min.js"></script>
         <script src="../js/bootstrap-3.0.3.min.js"></script>

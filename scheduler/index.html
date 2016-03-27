@@ -139,6 +139,12 @@
 <p>After receiving the scheduling suggestions by Fenzo,the the framework then prepares each task by creating a <code>TaskInfo</code> object which contains information such as the slave ID and task data. Tasks are scheduled on a per Host (node) basis. Hosts are specified using the <code>VMAssignmentResult</code> object and can offer multiple resource offers (called <code>leases</code> in the code). A list of all TaskInfo object for each host is created in an object called <code>taskInfos</code>. Additionally, a list of all the resource offer ids that will be used on the particular host are created and stored in a list called <code>offerIDs</code>. Once the <code>taskInfos</code> and <code>offerIDs</code> objects are populated, they are submitted to the mesos driver using the method, <code>MesosSchedulerDriver::launchTasks()</code>. The mesos driver is responsible for getting the tasks to their corresponding executor.</p></div>
         </div>
 
+        <footer class="col-md-12">
+            <hr>
+            
+            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</center>
+        </footer>
+
         <script src="../js/jquery-1.10.2.min.js"></script>
         <script src="../js/bootstrap-3.0.3.min.js"></script>
         <script src="../js/highlight.pack.js"></script>
