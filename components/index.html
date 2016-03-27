@@ -133,7 +133,7 @@
 <h3 id="creating-a-job">Creating a Job</h3>
 <p>The Web API receives input as documented on the Web API Schema page. It then validates user input as necessary and forwards the input to an instance of the scheduler framework. To create a job, the API forwards the parameters to the <code>MagellanFramework::createJob()</code> method which then returns the created job's ID and returns it to the user making the API request.</p>
 <h3 id="getting-job-status">Getting Job Status</h3>
-<p>When the user requests data about the running jobs, the web API calls the <code>MagellanFramework::getJobStatus()</code> and <code>MagellanFramework::getAllJobStatuses()</code> methods for a specific job and for all jobs, respectively. The method calls provide all the info about a job which is then returned to the user.</p>
+<p>When the user requests data about the running jobs, the web API calls the <code>MagellanFramework::getSimpleJobStatus()</code> and <code>MagellanFramework::getSimpleAllJobStatuses()</code> methods for a specific job and for all jobs, respectively. The method calls provide all the info about a job which is then returned to the user.</p>
 <h3 id="manage-a-job">Manage a Job</h3>
 <p>The Web API is able to pause, resume, and stop a job. The user makes a request and specificies which action they would like to take. The Web API then makes the appropriate method call to the scheduler framework: <code>MagellanFramework::pauseJob()</code>, <code>MagellanFramework::resumeJob()</code>, and <code>MagellanFramework::stopJob()</code>.</p>
 <h2 id="scheduler-backend-faleiro">Scheduler Backend (Faleiro)</h2>
