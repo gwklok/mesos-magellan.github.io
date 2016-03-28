@@ -41,14 +41,27 @@ On each run of the MagellanFramework main loop, the framework invokes Fenzo's bi
 ### Zookeeper
 Zookeeper is a service provided by Apache that provides synchronization and maintains configuration information reliably across a distributed cluster. In our system, Zookeeper is responsible for providing high availability (HA) by performing two services: leader election and persisting scheduler state.
 
-You can find more information on the specifics of Zookeeper here (http://zookeeper.apache.org/doc/r3.3.3/zookeeperProgrammers.html#_introduction) but here are the essentials:
+You can find more information on the specifics of Zookeeper [here](http://zookeeper.apache.org/doc/r3.3.3/zookeeperProgrammers.html#_introduction) but these are the essentials:
 
-Zookeeper consists of a hierarchal namespace much like a file system. The only difference is that each node can have data as well as having children
+1. Zookeeper stores data in a hierarchal namespace much like a file system. The only difference is that each node can have data as well as having children. You can think of this data model like a tree.
+2. A Zookeeper node can be one of two types - ephemeral or persistant. A persistant node maintains its information even after the process that wrote it dies which makes it really useful for persisting scheduler state. An ephemeral node only maintains its data until the process that created it dies and this functionality is utilized during leader election. 
+3. Processes can place watches on various nodes within Zookeeper so that they are notified when events such as data is modified or when node existence changes. 	
 
 #### Leader Election
 In order to ensure that our cluster is resilient to schedulers crashing, we introduced a system with multiple schedulers. The idea is that one of these schedulers will be the leader and coordinate all the various functions of a scheduler while the other "follower" schedulers will wait in idle until the lead scheduler goes down for any reason . When the leader goes down, the remaining, idle schedulers will undergo the process of leader election by confering among themselves and electing a new scheduler as the leader. This new leader will be responsible for restoring the state of the system to where it was before the first leader crashed. This entails re-enabling the web endpoints to communicate with our web UI, open a new connection with the Mesos master and restarting jobs that were running previously. 
 
-The process of electing a leader is done by levereging Zookeeper's to synchronize and coordinate concurrent writes.
+The process of electing a leader is done by levereging Zookeeper's ability to synchronize and coordinate concurrent writes. The steps are as follows:
+
+1. Create an ephemeral node, Z, at path "/election/p_id". The id is a sequential number assigned by zookeeper.
+2. Get the children of "/election", denoted as C.
+3. If the id of Z is the lowest id present in C, then z is elected the leader.
+4. If the id of Z is not the lowest, set a watch on the node whose sequential id is immediately lower in the list of children, C and then go to sleep
+
+If the current leader ,or any of the "follower" scheduler dies, the ephemeral node that it created is deleted with it. This action triggers a watch that one of the other schedulers will pick up. When a watch is triggered in response to a delete, the following sequence occurs:
+
+1. The scheduler that is woken by the watch gets the new list of children, C, of "/election"
+2. if the scheduler's id is the smallest in C, then this scheduler becomes the new leader.
+3. If the scheduler's id is not the smallest, then set another watch on the node whose id is immediately smaller in C and go to sleep.
 
 ### Framework Main Loop
 The main loop of the MagellanFramework is run in a separate thread which calls the function `MagellanFramework::runFramework()`. This function first loops through the list of running jobs in the system and calls `MagellanJob::getPendingTasks()` on each job to get a list of tasks it wants to schedule. It then gives this list to Fenzo by calling `TaskScheduler::scheduleOnce()` and receives a mapping between resource offers and tasks. If some of the tasks are not selected to be scheduled by Fenzo, then the remaining tasks are retained by the Framework and are submitted to Fenzo again during the next iteration. 
