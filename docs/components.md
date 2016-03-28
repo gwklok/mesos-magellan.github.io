@@ -63,6 +63,9 @@ If the current leader ,or any of the "follower" scheduler dies, the ephemeral no
 2. if the scheduler's id is the smallest in C, then this scheduler becomes the new leader.
 3. If the scheduler's id is not the smallest, then set another watch on the node whose id is immediately smaller in C and go to sleep.
 
+#### Data Persistance
+Normally, scheduler state would have been preserved in RAM which would be lost once the lead scheduler goes down. To alleviate this, we persist all the necesssary internal state to revive a job on a new scheduler on Zookeeper. When a new leader is elected, it reads this state from Zookeeper and starts the previously running jobs from where the left off.
+
 ### Framework Main Loop
 The main loop of the MagellanFramework is run in a separate thread which calls the function `MagellanFramework::runFramework()`. This function first loops through the list of running jobs in the system and calls `MagellanJob::getPendingTasks()` on each job to get a list of tasks it wants to schedule. It then gives this list to Fenzo by calling `TaskScheduler::scheduleOnce()` and receives a mapping between resource offers and tasks. If some of the tasks are not selected to be scheduled by Fenzo, then the remaining tasks are retained by the Framework and are submitted to Fenzo again during the next iteration. 
 
