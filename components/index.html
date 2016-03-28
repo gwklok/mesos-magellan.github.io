@@ -160,11 +160,27 @@
 <p>On each run of the MagellanFramework main loop, the framework invokes Fenzo's bin backing functionality by calling <code>TaskScheduler::scheduleOnce()</code> and providing it with a list of resource offers received from <code>MagellanFramework::resourceOffers()</code> and tasks to schedule which is attained by calling <code>MagellanJob::getPendingTasks()</code>. If resource offers are not used by fenzo in the current itertation of the Framework's main loop, it keeps hold of them and are re-used on the next call to <code>TaskScheduler::scheduleOnce()</code>.</p>
 <h3 id="zookeeper">Zookeeper</h3>
 <p>Zookeeper is a service provided by Apache that provides synchronization and maintains configuration information reliably across a distributed cluster. In our system, Zookeeper is responsible for providing high availability (HA) by performing two services: leader election and persisting scheduler state.</p>
-<p>You can find more information on the specifics of Zookeeper here (http://zookeeper.apache.org/doc/r3.3.3/zookeeperProgrammers.html#_introduction) but here are the essentials:</p>
-<p>Zookeeper consists of a hierarchal namespace much like a file system. The only difference is that each node can have data as well as having children</p>
+<p>You can find more information on the specifics of Zookeeper <a href="http://zookeeper.apache.org/doc/r3.3.3/zookeeperProgrammers.html#_introduction">here</a> but these are the essentials:</p>
+<ol>
+<li>Zookeeper stores data in a hierarchal namespace much like a file system. The only difference is that each node can have data as well as having children. You can think of this data model like a tree.</li>
+<li>A Zookeeper node can be one of two types - ephemeral or persistant. A persistant node maintains its information even after the process that wrote it dies which makes it really useful for persisting scheduler state. An ephemeral node only maintains its data until the process that created it dies and this functionality is utilized during leader election. </li>
+<li>Processes can place watches on various nodes within Zookeeper so that they are notified when events such as data is modified or when node existence changes.     </li>
+</ol>
 <h4 id="leader-election">Leader Election</h4>
 <p>In order to ensure that our cluster is resilient to schedulers crashing, we introduced a system with multiple schedulers. The idea is that one of these schedulers will be the leader and coordinate all the various functions of a scheduler while the other "follower" schedulers will wait in idle until the lead scheduler goes down for any reason . When the leader goes down, the remaining, idle schedulers will undergo the process of leader election by confering among themselves and electing a new scheduler as the leader. This new leader will be responsible for restoring the state of the system to where it was before the first leader crashed. This entails re-enabling the web endpoints to communicate with our web UI, open a new connection with the Mesos master and restarting jobs that were running previously. </p>
-<p>The process of electing a leader is done by levereging Zookeeper's to synchronize and coordinate concurrent writes.</p>
+<p>The process of electing a leader is done by levereging Zookeeper's ability to synchronize and coordinate concurrent writes. The steps are as follows:</p>
+<ol>
+<li>Create an ephemeral node, Z, at path "/election/p_id". The id is a sequential number assigned by zookeeper.</li>
+<li>Get the children of "/election", denoted as C.</li>
+<li>If the id of Z is the lowest id present in C, then z is elected the leader.</li>
+<li>If the id of Z is not the lowest, set a watch on the node whose sequential id is immediately lower in the list of children, C and then go to sleep</li>
+</ol>
+<p>If the current leader ,or any of the "follower" scheduler dies, the ephemeral node that it created is deleted with it. This action triggers a watch that one of the other schedulers will pick up. When a watch is triggered in response to a delete, the following sequence occurs:</p>
+<ol>
+<li>The scheduler that is woken by the watch gets the new list of children, C, of "/election"</li>
+<li>if the scheduler's id is the smallest in C, then this scheduler becomes the new leader.</li>
+<li>If the scheduler's id is not the smallest, then set another watch on the node whose id is immediately smaller in C and go to sleep.</li>
+</ol>
 <h3 id="framework-main-loop">Framework Main Loop</h3>
 <p>The main loop of the MagellanFramework is run in a separate thread which calls the function <code>MagellanFramework::runFramework()</code>. This function first loops through the list of running jobs in the system and calls <code>MagellanJob::getPendingTasks()</code> on each job to get a list of tasks it wants to schedule. It then gives this list to Fenzo by calling <code>TaskScheduler::scheduleOnce()</code> and receives a mapping between resource offers and tasks. If some of the tasks are not selected to be scheduled by Fenzo, then the remaining tasks are retained by the Framework and are submitted to Fenzo again during the next iteration. </p>
 <p>After receiving the scheduling suggestions by Fenzo,the the framework then prepares each task by creating a <code>TaskInfo</code> object which contains information such as the slave ID and task data. Tasks are scheduled on a per Host (node) basis. Hosts are specified using the <code>VMAssignmentResult</code> object and can offer multiple resource offers (called <code>leases</code> in the code). A list of all TaskInfo object for each host is created in an object called <code>taskInfos</code>. Additionally, a list of all the resource offer ids that will be used on the particular host are created and stored in a list called <code>offerIDs</code>. Once the <code>taskInfos</code> and <code>offerIDs</code> objects are populated, they are submitted to the mesos driver using the method, <code>MesosSchedulerDriver::launchTasks()</code>. The mesos driver is responsible for getting the tasks to their corresponding executor.</p></div>
