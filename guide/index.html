@@ -9,7 +9,7 @@
         
         <link rel="shortcut icon" href="../img/favicon.ico">
 
-	<title>Testing - Magellan</title>
+	<title>Guide - Magellan</title>
 
         <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
@@ -74,8 +74,8 @@
             
             
             
-                <li class="active">
-                    <a href="./">Testing</a>
+                <li >
+                    <a href="../test/">Testing</a>
                 </li>
             
             
@@ -86,8 +86,8 @@
             
             
             
-                <li >
-                    <a href="../guide/">Guide</a>
+                <li class="active">
+                    <a href="./">Guide</a>
                 </li>
             
             
@@ -96,12 +96,12 @@
             <!-- Search, Navigation and Repo links -->
             <ul class="nav navbar-nav navbar-right">
                 <li >
-                    <a rel="next" href="../arch/">
+                    <a rel="next" href="../demo/">
                         <i class="fa fa-arrow-left"></i> Previous
                     </a>
                 </li>
-                <li >
-                    <a rel="prev" href="../demo/">
+                <li class="disabled">
+                    <a rel="prev" >
                         Next <i class="fa fa-arrow-right"></i>
                     </a>
                 </li>
@@ -115,53 +115,15 @@
             <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
-        <li class="main active"><a href="#testing">Testing</a></li>
-        
-            <li><a href="#unit-testing">Unit Testing</a></li>
-        
-            <li><a href="#performance-testing">Performance Testing</a></li>
-        
-            <li><a href="#accuracy-testing">Accuracy Testing</a></li>
+        <li class="main active"><a href="#how-to-use-magellan">How to use Magellan</a></li>
         
     
     </ul>
 </div></div>
             <div class="col-md-9" role="main">
 
-<h1 id="testing">Testing</h1>
-<h2 id="unit-testing">Unit Testing</h2>
-<h3 id="scheduler">Scheduler</h3>
-<p>The scheduler has a suite of jUnit tests that are run on every push to GitHub and after building locally.</p>
-<h2 id="performance-testing">Performance Testing</h2>
-<h3 id="stress-test">Stress Test</h3>
-<p>Create many jobs over time</p>
-<h3 id="soak-test">Soak Test</h3>
-<p>Run a few long jobs</p>
-<h3 id="spike-test">Spike Test</h3>
-<p>Create many jobs at once</p>
-<h3 id="solution-comparisons">Solution Comparisons</h3>
-<h4 id="distributed-simulated-annealing-vs-bruteforce">Distributed Simulated Annealing vs. Bruteforce</h4>
-<h4 id="distributed-simulated-annealing-vs-locally-serial">Distributed Simulated Annealing vs. Locally Serial</h4>
-<h4 id="distributed-simulated-annealing-vs-locally-parallel">Distributed Simulated Annealing vs. Locally Parallel</h4>
-<h2 id="accuracy-testing">Accuracy Testing</h2>
-<p>To prove the accuracy of Magellan and Travelling Sailor, we ran a bruteforce solution to solving TSP for 10 cities. Magellan was able to find the same best fitness as the bruteforce solution. The fitness was measured as the geodesic diestance between the cities for a round trip back to the starting city. The best fitness found was <code>28919.86893 km</code> and the data used was:</p>
-<pre><code class="json">{
-&quot;cities&quot;: {
-   &quot;Holmesville&quot;: [31.7036111, -82.3208333],
-   &quot;Jatipasir&quot;: [-8.2509, 113.9975],
-   &quot;Tapalinna&quot;: [-2.923, 119.1626],
-   &quot;Sahout el Ma&quot;: [16.9166667, -15.1666667],
-   &quot;Isanganaka&quot;: [-0.683333, 24.083333],
-   &quot;El Yerbanis&quot;: [29.45, -108.6],
-   &quot;Gun-ob&quot;: [9.6289, 124.0517],
-   &quot;Chak Seventy-five ML&quot;: [31.345362, 71.123454],
-   &quot;Bakous&quot;: [13.7363889, -16.6080556],
-   &quot;Metkow Maly&quot;: [50.05, 19.4]
-},
-&quot;updates_enabled&quot;: false,
-&quot;start_city&quot;: &quot;Bakous&quot;
-}
-</code></pre></div>
+<h1 id="how-to-use-magellan">How to use Magellan</h1>
+<p>An explanation on how to write a module for Magellan to solve your problem.</p></div>
         </div>
 
         <script src="../js/jquery-1.10.2.min.js"></script>
