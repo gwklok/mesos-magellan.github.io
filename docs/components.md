@@ -26,20 +26,29 @@ When the user requests data about the running jobs, the web API calls the `Magel
 
 The Web API is able to pause, resume, and stop a job. The user makes a request and specificies which action they would like to take. The Web API then makes the appropriate method call to the scheduler framework: `MagellanFramework::pauseJob()`, `MagellanFramework::resumeJob()`, and `MagellanFramework::stopJob()`.
 
-## Scheduler Backend (Faleiro)
+# Scheduler Backend (Faleiro)
 
 Faleiro is the code name for our scheduler. Our scheduler is controlled from our web api and is responsible for accepting resource offers from the Mesos master, collecting tasks to be scheduled from active jobs, and choosing and running a subset of these jobs on availble resource offers. 
 
-### Using Resource Offers
-Mesos master sends resource offers to the scheduler by calling `MagellanFramework::resourceOffers()` which stores the resource offers in a `BlockingQueue` which is accessed by Fenzo later.  
-
-
-### Picking Parameters for New Tasks
-The scheduler tells each executor the starting parameters for its simulated annealing algorithm. These parameters are formatted as a json string and include information such as the starting location to start the search, data passed in by the client using the command line client, and the name of the specific task we want to import on the executor side (see documentation on executor). The full json list is shown in the Job to Executor document. , and the length of time that we want the executor to run for. The  Initial temperature, cooling rate and number of iterations per change in temperature are all chosen on the executor side.
-
+### Resource Offers
+Once the scheduler has registered with the Mesos Master, the Master provides fine grained access to machine resources (such CPU, RAM) availble in the cluster to the scheduler by sending resource offers. Schedulers will then use these resource offers to run tasks. The Master sends resource offers asynchronously to the scheduler by calling `MagellanFramework::resourceOffers()` and the scheduler stores these resource offers in a `BlockingQueue`. These received resource offers are then given to Fenzo inside the framework's main loop (see sections on "Fenzo" and "Framework Main Loop").  
 
 ### Fenzo
-Fenzo is a library provided by Netflix that manages the scheduling and resource managment of tasks we want to execute. On each run of the MagellanFramework main loop, the framework invokes Fenzo by calling `TaskScheduler::scheduleOnce()` and providing it with a list of resource offers and tasks. The resource offers are taken from the queue where they were placed by `MagellanFramework::resourceOffers()`. The list of tasks to run is attained by calling `MagellanJob::getPendingTasks()`. If resource offers are not used by fenzo, it keeps hold of them and are used on the next call to `TaskScheduler::scheduleOnce()`.
+Fenzo is a java library provided by Netflix that essentially takes care of the bin packing problem for us. In other words, given a list of tasks to run and a list of resource offers, find the most efficient pairings between tasks and resource offers.  Although we could have used a simple, greedy algorithm of pairing the first task in our queue with the first resource offer received, this approach not only scales terribly, but also doesn't take into account the heterogeneous nature of the tasks and resource offers. Each task could require different amounts of system resources to run and mixed constraints. By using fenzo, we can acheive scheduling optimizations and autoscaling the cluster based on usage. 
+
+On each run of the MagellanFramework main loop, the framework invokes Fenzo's bin backing functionality by calling `TaskScheduler::scheduleOnce()` and providing it with a list of resource offers received from `MagellanFramework::resourceOffers()` and tasks to schedule which is attained by calling `MagellanJob::getPendingTasks()`. If resource offers are not used by fenzo in the current itertation of the Framework's main loop, it keeps hold of them and are re-used on the next call to `TaskScheduler::scheduleOnce()`.
+
+### Zookeeper
+Zookeeper is a service provided by Apache that provides synchronization and maintains configuration information reliably across a distributed cluster. In our system, Zookeeper is responsible for providing high availability (HA) by performing two services: leader election and persisting scheduler state.
+
+You can find more information on the specifics of Zookeeper here (http://zookeeper.apache.org/doc/r3.3.3/zookeeperProgrammers.html#_introduction) but here are the essentials:
+
+Zookeeper consists of a hierarchal namespace much like a file system. The only difference is that each node can have data as well as having children
+
+#### Leader Election
+In order to ensure that our cluster is resilient to schedulers crashing, we introduced a system with multiple schedulers. The idea is that one of these schedulers will be the leader and coordinate all the various functions of a scheduler while the other "follower" schedulers will wait in idle until the lead scheduler goes down for any reason . When the leader goes down, the remaining, idle schedulers will undergo the process of leader election by confering among themselves and electing a new scheduler as the leader. This new leader will be responsible for restoring the state of the system to where it was before the first leader crashed. This entails re-enabling the web endpoints to communicate with our web UI, open a new connection with the Mesos master and restarting jobs that were running previously. 
+
+The process of electing a leader is done by levereging Zookeeper's to synchronize and coordinate concurrent writes.
 
 ### Framework Main Loop
 The main loop of the MagellanFramework is run in a separate thread which calls the function `MagellanFramework::runFramework()`. This function first loops through the list of running jobs in the system and calls `MagellanJob::getPendingTasks()` on each job to get a list of tasks it wants to schedule. It then gives this list to Fenzo by calling `TaskScheduler::scheduleOnce()` and receives a mapping between resource offers and tasks. If some of the tasks are not selected to be scheduled by Fenzo, then the remaining tasks are retained by the Framework and are submitted to Fenzo again during the next iteration. 
