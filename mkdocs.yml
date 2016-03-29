@@ -1,10 +1,10 @@
 site_name: Magellan
 theme: cyborg
 pages:
-- Home : index.md
-- Components: components.md
-- Communication: comm.md
-- Architecture: arch.md
-- Testing : test.md
-- Demo: demo.md
-- Guides: guide.md
+  - Home : index.md
+  - Components: components.md
+  - Communication: comm.md
+  - Architecture: arch.md
+  - Testing : test.md
+  - Demo: demo.md
+  - Guides: guide.md
