@@ -242,3 +242,13 @@ In case of a failed task, the following body will be returned with a TASK_FAILED
     "error": <stacktrace>
 }
 ```
+
+## Executor to Problem
+
+### Problem Definition
+
+Clients can provide problems to be solved by providing implementations of the Problem definition from the Magellan pyrallelsa package.
+
+### Executor Execution
+
+When the client creates a job they will provide a URL (either to a git respository or a gzip archive) of the problem definition. The executor will then pull and cache the archive on the agent. It will import and use the Problem defined in the downloaded package.

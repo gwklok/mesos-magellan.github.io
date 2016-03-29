@@ -1,3 +1,3 @@
 # Magellan Demo (Travelling Sailor)
 
-Description of the travelling sailor demo.
+The *traveling-sailor* demo is a complete TSP demo which simply imports the sample problem of TSP defined in pyrallelsa. The implementation in pyrallelsa defines `move`, `energy` and `divide` functions as required. `TSPProblem.divide` will divide a problem with size of *x* cities into *x* divisions each of which lock and edge from the starting city to each of the *x* cities per division from being mutated in the `move` method. This effectively divides the search space into *x* subspaces. The scheduler will then send back each of these divisions which the annealer will anneal.
