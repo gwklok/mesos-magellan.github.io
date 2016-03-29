@@ -95,6 +95,11 @@
 
             <!-- Search, Navigation and Repo links -->
             <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
                 <li >
                     <a rel="next" href="../demo/">
                         <i class="fa fa-arrow-left"></i> Previous
@@ -117,6 +122,10 @@
     
         <li class="main active"><a href="#how-to-use-magellan">How to use Magellan</a></li>
         
+            <li><a href="#defining-your-problem">Defining Your Problem</a></li>
+        
+            <li><a href="#packaging-your-problem-for-magellan">Packaging your Problem for Magellan</a></li>
+        
             <li><a href="#creating-a-job-via-the-web-ui">Creating a job via the Web UI</a></li>
         
     
@@ -126,13 +135,29 @@
 
 <h1 id="how-to-use-magellan">How to use Magellan</h1>
 <p>An explanation on how to write and use a module for Magellan to solve your problem.</p>
+<h2 id="defining-your-problem">Defining Your Problem</h2>
+<p>Finding a solution to your problem with Magellan is as easy writing one Python class. Well, mostly.</p>
+<p>In order to define your problem, you must create a new Python file called <code>problem.py</code>. This file needs to contain a class called <code>Problem</code> which is an implementation of <a href="https://github.com/mesos-magellan/pyrallelsa/blob/master/pyrallelsa/__init__.py#L15"><code>pyrallelsa.Problem</code></a>. In your implementation of problem, define your:
+   * <code>move</code> method: This will mutate the state of the solution as it is annealing
+   * <code>energy</code> method: This determines the energy (also known as fitness) of the current solution. Since we are talking in terms of annealing, lower energy is better! (We are aiming to minimize)
+   * <code>divide</code> method: The implementation of the divide method is up to your choosing. By definition, the divide method should subdivide the solution space given by your <code>problem_data</code> into the given <code>divisions</code> deterministically.</p>
+<p>And you're done defining your problem! That was easy wasn't it?</p>
+<h2 id="packaging-your-problem-for-magellan">Packaging your Problem for Magellan</h2>
+<p>Once you have your <code>problem.py</code> defined (<a href="https://github.com/mesos-magellan/traveling-sailor/blob/master/problem.py">see <em>traveling-sailor</em>\'s <code>problem.py</code> if you need an example</a>), all you need to do is either publish this in a git repository (<em>traveling-sailor</em> is the optimal example!) or serve this is a gzip archive.</p>
 <h2 id="creating-a-job-via-the-web-ui">Creating a job via the Web UI</h2>
 <ul>
 <li>Navigate to the "Create a Job" page by clicking the link on the top-right of the homepage.</li>
 <li>Enter a descriptive indentifying name for the job, (eg. Traveling Sailor).</li>
 <li>Enter how many minutes of CPU time (not real time) you want the job to run for, (eg. 40).</li>
-<li>Enter a URL to a GIT repository or a downloadable tarball (.tar.gz), (eg. git://github.com/mesos-magellan/traveling-sailor).</li>
-<li>Enter any additional data in JSON format you want to be passed on to your module. (Example for traveling-sailor at the end of this section).</li>
+<li>Enter a URL to a git repository or a downloadable tarball (.tar.gz). The following are all valid examples from <em>traveling-sailor</em>. The first two are valid links to a git repository and the last is a static tarball. git repositories are recommended as they can be more efficiently updated if cached on an agent.</li>
+<li>git://github.com/mesos-magellan/traveling-sailor</li>
+<li>https://github.com/mesos-magellan/traveling-sailor.git</li>
+<li>
+<p>https://github.com/mesos-magellan/traveling-sailor/archive/0.1.0.tar.gz</p>
+</li>
+<li>
+<p>Enter any additional data in JSON format you want to be passed on to your module. (Example for traveling-sailor at the end of this section).</p>
+</li>
 <li>Press the "Create Job" button, you will then be forwarded to the "Job Details" page for your newly created job.</li>
 </ul>
 <p>Module JSON data example for traveling-sailor:</p>
@@ -155,9 +180,42 @@
 </code></pre></div>
         </div>
 
+        <footer class="col-md-12">
+            <hr>
+            
+            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</center>
+        </footer>
+
         <script src="../js/jquery-1.10.2.min.js"></script>
         <script src="../js/bootstrap-3.0.3.min.js"></script>
         <script src="../js/highlight.pack.js"></script>
+        <script>var base_url = '..';</script>
+        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
         <script src="../js/base.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            From here you can search these documents. Enter
+                            your search terms below.
+                        </p>
+                        <form role="form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                            </div>
+                        </form>
+                        <div id="mkdocs-search-results"></div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

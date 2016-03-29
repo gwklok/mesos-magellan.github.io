@@ -95,6 +95,11 @@
 
             <!-- Search, Navigation and Repo links -->
             <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
                 <li >
                     <a rel="next" href="..">
                         <i class="fa fa-arrow-left"></i> Previous
@@ -181,14 +186,49 @@
 <li>if the scheduler's id is the smallest in C, then this scheduler becomes the new leader.</li>
 <li>If the scheduler's id is not the smallest, then set another watch on the node whose id is immediately smaller in C and go to sleep.</li>
 </ol>
+<h4 id="data-persistance">Data Persistance</h4>
+<p>Normally, scheduler state would have been preserved in RAM which would be lost once the lead scheduler goes down. To alleviate this, we persist all the necesssary internal state to revive a job on a new scheduler on Zookeeper. When a new leader is elected, it reads this state from Zookeeper and starts the previously running jobs from where the left off.</p>
 <h3 id="framework-main-loop">Framework Main Loop</h3>
 <p>The main loop of the MagellanFramework is run in a separate thread which calls the function <code>MagellanFramework::runFramework()</code>. This function first loops through the list of running jobs in the system and calls <code>MagellanJob::getPendingTasks()</code> on each job to get a list of tasks it wants to schedule. It then gives this list to Fenzo by calling <code>TaskScheduler::scheduleOnce()</code> and receives a mapping between resource offers and tasks. If some of the tasks are not selected to be scheduled by Fenzo, then the remaining tasks are retained by the Framework and are submitted to Fenzo again during the next iteration. </p>
 <p>After receiving the scheduling suggestions by Fenzo,the the framework then prepares each task by creating a <code>TaskInfo</code> object which contains information such as the slave ID and task data. Tasks are scheduled on a per Host (node) basis. Hosts are specified using the <code>VMAssignmentResult</code> object and can offer multiple resource offers (called <code>leases</code> in the code). A list of all TaskInfo object for each host is created in an object called <code>taskInfos</code>. Additionally, a list of all the resource offer ids that will be used on the particular host are created and stored in a list called <code>offerIDs</code>. Once the <code>taskInfos</code> and <code>offerIDs</code> objects are populated, they are submitted to the mesos driver using the method, <code>MesosSchedulerDriver::launchTasks()</code>. The mesos driver is responsible for getting the tasks to their corresponding executor.</p></div>
         </div>
 
+        <footer class="col-md-12">
+            <hr>
+            
+            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</center>
+        </footer>
+
         <script src="../js/jquery-1.10.2.min.js"></script>
         <script src="../js/bootstrap-3.0.3.min.js"></script>
         <script src="../js/highlight.pack.js"></script>
+        <script>var base_url = '..';</script>
+        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
         <script src="../js/base.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            From here you can search these documents. Enter
+                            your search terms below.
+                        </p>
+                        <form role="form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                            </div>
+                        </form>
+                        <div id="mkdocs-search-results"></div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

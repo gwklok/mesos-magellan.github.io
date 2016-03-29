@@ -95,6 +95,11 @@
 
             <!-- Search, Navigation and Repo links -->
             <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
                 <li class="disabled">
                     <a rel="next" >
                         <i class="fa fa-arrow-left"></i> Previous
@@ -128,16 +133,57 @@
 <p>A Mesos framework for Distributed Simulated Annealing.</p>
 <h2 id="components">Components</h2>
 <h3 id="faleiro-the-scheduler">Faleiro (The Scheduler)</h3>
+<p>Faleiro performs orchestration and assigning tasks to agents. It makes sure your job gets done.</p>
 <h3 id="enrique-the-executor">Enrique (The Executor)</h3>
+<p>Enrique is responsible for pulling and executing tasks on remote agents. It receives orders from Faleiro.</p>
 <h3 id="miguel-the-scheduler-cli">Miguel (The Scheduler CLI)</h3>
+<p>Miguel is a CLI which communicates with Faleiro over its REST API.</p>
+<h3 id="circumnavigator-web-user-interface">Circumnavigator (Web User Interface)</h3>
+<p>If you like GUIs, Circumnavigator is the graphical analogue to Miguel.</p>
 <h3 id="victoria-development-environment">Victoria (Development Environment)</h3>
+<p>Victoria is a development and production environment deployment tool. It can bring up your dev environment and a huge production cluster with a single click (<code>vagrant up</code>).</p>
 <h3 id="traveling-sailor-tsp-solver-using-simulated-annealing">Traveling Sailor (TSP Solver using Simulated Annealing)</h3>
-<h3 id="circumnavigator-web-user-interface">Circumnavigator (Web User Interface)</h3></div>
+<p><code>traveling-sailor</code> is the official Magellan example Problem.</p>
+<h3 id="pyrallelsa">PyrallelSA</h3>
+<p><code>pyrallelsa</code> is the Magellan library that has the Problem definition interface in Python which you can use to define your problem for use with Magellan.</p></div>
         </div>
+
+        <footer class="col-md-12">
+            <hr>
+            
+            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</center>
+        </footer>
 
         <script src="./js/jquery-1.10.2.min.js"></script>
         <script src="./js/bootstrap-3.0.3.min.js"></script>
         <script src="./js/highlight.pack.js"></script>
+        <script>var base_url = '.';</script>
+        <script data-main="./mkdocs/js/search.js" src="./mkdocs/js/require.js"></script>
         <script src="./js/base.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            From here you can search these documents. Enter
+                            your search terms below.
+                        </p>
+                        <form role="form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                            </div>
+                        </form>
+                        <div id="mkdocs-search-results"></div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

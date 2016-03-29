@@ -95,6 +95,11 @@
 
             <!-- Search, Navigation and Repo links -->
             <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
                 <li >
                     <a rel="next" href="../test/">
                         <i class="fa fa-arrow-left"></i> Previous
@@ -123,12 +128,45 @@
             <div class="col-md-9" role="main">
 
 <h1 id="magellan-demo-travelling-sailor">Magellan Demo (Travelling Sailor)</h1>
-<p>Description of the travelling sailor demo.</p></div>
+<p>The <em>traveling-sailor</em> demo is a complete TSP demo which simply imports the sample problem of TSP defined in pyrallelsa. The implementation in pyrallelsa defines <code>move</code>, <code>energy</code> and <code>divide</code> functions as required. <code>TSPProblem.divide</code> will divide a problem with size of <em>x</em> cities into <em>x</em> divisions each of which lock and edge from the starting city to each of the <em>x</em> cities per division from being mutated in the <code>move</code> method. This effectively divides the search space into <em>x</em> subspaces. The scheduler will then send back each of these divisions which the annealer will anneal.</p></div>
         </div>
+
+        <footer class="col-md-12">
+            <hr>
+            
+            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</center>
+        </footer>
 
         <script src="../js/jquery-1.10.2.min.js"></script>
         <script src="../js/bootstrap-3.0.3.min.js"></script>
         <script src="../js/highlight.pack.js"></script>
+        <script>var base_url = '..';</script>
+        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
         <script src="../js/base.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            From here you can search these documents. Enter
+                            your search terms below.
+                        </p>
+                        <form role="form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                            </div>
+                        </form>
+                        <div id="mkdocs-search-results"></div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
