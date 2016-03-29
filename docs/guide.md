@@ -15,7 +15,7 @@ And you're done defining your problem! That was easy wasn't it?
 
 ## Packaging your Problem for Magellan
 
-Once you have your `problem.py` defined ([see *traveling-sailor*\'s `problem.py` if you need an example](https://github.com/mesos-magellan/traveling-sailor/blob/master/problem.py)), all you need to do is either publish this in a git repository (*traveling-sailor* is the optimal example!) or serve this is a gzip archive.
+Once you have your `problem.py` defined ([see *traveling-sailor*'s `problem.py` if you need an example](https://github.com/mesos-magellan/traveling-sailor/blob/master/problem.py)), all you need to do is either publish this in a git repository (*traveling-sailor* is the optimal example!) or serve this is a gzip archive.
 
 ## Creating a job via the Web UI
 
@@ -23,9 +23,10 @@ Once you have your `problem.py` defined ([see *traveling-sailor*\'s `problem.py`
 * Enter a descriptive indentifying name for the job, (eg. Traveling Sailor).
 * Enter how many minutes of CPU time (not real time) you want the job to run for, (eg. 40).
 * Enter a URL to a git repository or a downloadable tarball (.tar.gz). The following are all valid examples from *traveling-sailor*. The first two are valid links to a git repository and the last is a static tarball. git repositories are recommended as they can be more efficiently updated if cached on an agent.
-   * git://github.com/mesos-magellan/traveling-sailor
-   * https://github.com/mesos-magellan/traveling-sailor.git
-   * https://github.com/mesos-magellan/traveling-sailor/archive/0.1.0.tar.gz
+
+    * git://github.com/mesos-magellan/traveling-sailor
+    * https://github.com/mesos-magellan/traveling-sailor.git
+    * https://github.com/mesos-magellan/traveling-sailor/archive/0.1.0.tar.gz
 
 * Enter any additional data in JSON format you want to be passed on to your module. (Example for traveling-sailor at the end of this section).
 * Press the "Create Job" button, you will then be forwarded to the "Job Details" page for your newly created job.

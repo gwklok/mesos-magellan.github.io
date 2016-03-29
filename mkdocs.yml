@@ -4,7 +4,7 @@ pages:
   - Home : index.md
   - Components: components.md
   - Communication: comm.md
-  - Architecture: arch.md
-  - Testing : test.md
+  #  - Architecture: arch.md  # disabled until complete
+  # - Testing : test.md  # disabled until complete
   - Demo: demo.md
   - Guides: guide.md
