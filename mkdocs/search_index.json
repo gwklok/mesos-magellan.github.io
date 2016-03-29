@@ -191,81 +191,6 @@
             "title": "Executor Execution"
         }, 
         {
-            "location": "/arch/", 
-            "text": "Architecture", 
-            "title": "Architecture"
-        }, 
-        {
-            "location": "/arch/#architecture", 
-            "text": "", 
-            "title": "Architecture"
-        }, 
-        {
-            "location": "/test/", 
-            "text": "Testing\n\n\nUnit Testing\n\n\nScheduler\n\n\nThe scheduler has a suite of jUnit tests that are run on every push to GitHub and after building locally.\n\n\nPerformance Testing\n\n\nStress Test\n\n\nCreate many jobs over time\n\n\nSoak Test\n\n\nRun a few long jobs\n\n\nSpike Test\n\n\nCreate many jobs at once\n\n\nSolution Comparisons\n\n\nDistributed Simulated Annealing vs. Bruteforce\n\n\nDistributed Simulated Annealing vs. Locally Serial\n\n\nDistributed Simulated Annealing vs. Locally Parallel\n\n\nAccuracy Testing\n\n\nTo prove the accuracy of Magellan and Travelling Sailor, we ran a bruteforce solution to solving TSP for 10 cities. Magellan was able to find the same best fitness as the bruteforce solution. The fitness was measured as the geodesic diestance between the cities for a round trip back to the starting city. The best fitness found was \n28919.86893 km\n and the data used was:\n\n\n{\n\ncities\n: {\n   \nHolmesville\n: [31.7036111, -82.3208333],\n   \nJatipasir\n: [-8.2509, 113.9975],\n   \nTapalinna\n: [-2.923, 119.1626],\n   \nSahout el Ma\n: [16.9166667, -15.1666667],\n   \nIsanganaka\n: [-0.683333, 24.083333],\n   \nEl Yerbanis\n: [29.45, -108.6],\n   \nGun-ob\n: [9.6289, 124.0517],\n   \nChak Seventy-five ML\n: [31.345362, 71.123454],\n   \nBakous\n: [13.7363889, -16.6080556],\n   \nMetkow Maly\n: [50.05, 19.4]\n},\n\nupdates_enabled\n: false,\n\nstart_city\n: \nBakous\n\n}", 
-            "title": "Testing"
-        }, 
-        {
-            "location": "/test/#testing", 
-            "text": "", 
-            "title": "Testing"
-        }, 
-        {
-            "location": "/test/#unit-testing", 
-            "text": "", 
-            "title": "Unit Testing"
-        }, 
-        {
-            "location": "/test/#scheduler", 
-            "text": "The scheduler has a suite of jUnit tests that are run on every push to GitHub and after building locally.", 
-            "title": "Scheduler"
-        }, 
-        {
-            "location": "/test/#performance-testing", 
-            "text": "", 
-            "title": "Performance Testing"
-        }, 
-        {
-            "location": "/test/#stress-test", 
-            "text": "Create many jobs over time", 
-            "title": "Stress Test"
-        }, 
-        {
-            "location": "/test/#soak-test", 
-            "text": "Run a few long jobs", 
-            "title": "Soak Test"
-        }, 
-        {
-            "location": "/test/#spike-test", 
-            "text": "Create many jobs at once", 
-            "title": "Spike Test"
-        }, 
-        {
-            "location": "/test/#solution-comparisons", 
-            "text": "", 
-            "title": "Solution Comparisons"
-        }, 
-        {
-            "location": "/test/#distributed-simulated-annealing-vs-bruteforce", 
-            "text": "", 
-            "title": "Distributed Simulated Annealing vs. Bruteforce"
-        }, 
-        {
-            "location": "/test/#distributed-simulated-annealing-vs-locally-serial", 
-            "text": "", 
-            "title": "Distributed Simulated Annealing vs. Locally Serial"
-        }, 
-        {
-            "location": "/test/#distributed-simulated-annealing-vs-locally-parallel", 
-            "text": "", 
-            "title": "Distributed Simulated Annealing vs. Locally Parallel"
-        }, 
-        {
-            "location": "/test/#accuracy-testing", 
-            "text": "To prove the accuracy of Magellan and Travelling Sailor, we ran a bruteforce solution to solving TSP for 10 cities. Magellan was able to find the same best fitness as the bruteforce solution. The fitness was measured as the geodesic diestance between the cities for a round trip back to the starting city. The best fitness found was  28919.86893 km  and the data used was:  { cities : {\n    Holmesville : [31.7036111, -82.3208333],\n    Jatipasir : [-8.2509, 113.9975],\n    Tapalinna : [-2.923, 119.1626],\n    Sahout el Ma : [16.9166667, -15.1666667],\n    Isanganaka : [-0.683333, 24.083333],\n    El Yerbanis : [29.45, -108.6],\n    Gun-ob : [9.6289, 124.0517],\n    Chak Seventy-five ML : [31.345362, 71.123454],\n    Bakous : [13.7363889, -16.6080556],\n    Metkow Maly : [50.05, 19.4]\n}, updates_enabled : false, start_city :  Bakous \n}", 
-            "title": "Accuracy Testing"
-        }, 
-        {
             "location": "/demo/", 
             "text": "Magellan Demo (Travelling Sailor)\n\n\nThe \ntraveling-sailor\n demo is a complete TSP demo which simply imports the sample problem of TSP defined in pyrallelsa. The implementation in pyrallelsa defines \nmove\n, \nenergy\n and \ndivide\n functions as required. \nTSPProblem.divide\n will divide a problem with size of \nx\n cities into \nx\n divisions each of which lock and edge from the starting city to each of the \nx\n cities per division from being mutated in the \nmove\n method. This effectively divides the search space into \nx\n subspaces. The scheduler will then send back each of these divisions which the annealer will anneal.", 
             "title": "Demo"
@@ -277,7 +202,7 @@
         }, 
         {
             "location": "/guide/", 
-            "text": "How to use Magellan\n\n\nAn explanation on how to write and use a module for Magellan to solve your problem.\n\n\nDefining Your Problem\n\n\nFinding a solution to your problem with Magellan is as easy writing one Python class. Well, mostly.\n\n\nIn order to define your problem, you must create a new Python file called \nproblem.py\n. This file needs to contain a class called \nProblem\n which is an implementation of \npyrallelsa.Problem\n. In your implementation of problem, define your:\n   * \nmove\n method: This will mutate the state of the solution as it is annealing\n   * \nenergy\n method: This determines the energy (also known as fitness) of the current solution. Since we are talking in terms of annealing, lower energy is better! (We are aiming to minimize)\n   * \ndivide\n method: The implementation of the divide method is up to your choosing. By definition, the divide method should subdivide the solution space given by your \nproblem_data\n into the given \ndivisions\n deterministically.\n\n\nAnd you're done defining your problem! That was easy wasn't it?\n\n\nPackaging your Problem for Magellan\n\n\nOnce you have your \nproblem.py\n defined (\nsee \ntraveling-sailor\n\\'s \nproblem.py\n if you need an example\n), all you need to do is either publish this in a git repository (\ntraveling-sailor\n is the optimal example!) or serve this is a gzip archive.\n\n\nCreating a job via the Web UI\n\n\n\n\nNavigate to the \"Create a Job\" page by clicking the link on the top-right of the homepage.\n\n\nEnter a descriptive indentifying name for the job, (eg. Traveling Sailor).\n\n\nEnter how many minutes of CPU time (not real time) you want the job to run for, (eg. 40).\n\n\nEnter a URL to a git repository or a downloadable tarball (.tar.gz). The following are all valid examples from \ntraveling-sailor\n. The first two are valid links to a git repository and the last is a static tarball. git repositories are recommended as they can be more efficiently updated if cached on an agent.\n\n\ngit://github.com/mesos-magellan/traveling-sailor\n\n\nhttps://github.com/mesos-magellan/traveling-sailor.git\n\n\n\n\nhttps://github.com/mesos-magellan/traveling-sailor/archive/0.1.0.tar.gz\n\n\n\n\n\n\nEnter any additional data in JSON format you want to be passed on to your module. (Example for traveling-sailor at the end of this section).\n\n\n\n\nPress the \"Create Job\" button, you will then be forwarded to the \"Job Details\" page for your newly created job.\n\n\n\n\nModule JSON data example for traveling-sailor:\n\n\n{\n\ncities\n: {\n   \nHolmesville\n: [31.7036111, -82.3208333],\n   \nJatipasir\n: [-8.2509, 113.9975],\n   \nTapalinna\n: [-2.923, 119.1626],\n   \nSahout el Ma\n: [16.9166667, -15.1666667],\n   \nIsanganaka\n: [-0.683333, 24.083333],\n   \nEl Yerbanis\n: [29.45, -108.6],\n   \nGun-ob\n: [9.6289, 124.0517],\n   \nChak Seventy-five ML\n: [31.345362, 71.123454],\n   \nBakous\n: [13.7363889, -16.6080556],\n   \nMetkow Maly\n: [50.05, 19.4]\n},\n\nupdates_enabled\n: false,\n\nstart_city\n: \nBakous\n\n}", 
+            "text": "How to use Magellan\n\n\nAn explanation on how to write and use a module for Magellan to solve your problem.\n\n\nDefining Your Problem\n\n\nFinding a solution to your problem with Magellan is as easy writing one Python class. Well, mostly.\n\n\nIn order to define your problem, you must create a new Python file called \nproblem.py\n. This file needs to contain a class called \nProblem\n which is an implementation of \npyrallelsa.Problem\n. In your implementation of problem, define your:\n   * \nmove\n method: This will mutate the state of the solution as it is annealing\n   * \nenergy\n method: This determines the energy (also known as fitness) of the current solution. Since we are talking in terms of annealing, lower energy is better! (We are aiming to minimize)\n   * \ndivide\n method: The implementation of the divide method is up to your choosing. By definition, the divide method should subdivide the solution space given by your \nproblem_data\n into the given \ndivisions\n deterministically.\n\n\nAnd you're done defining your problem! That was easy wasn't it?\n\n\nPackaging your Problem for Magellan\n\n\nOnce you have your \nproblem.py\n defined (\nsee \ntraveling-sailor\n's \nproblem.py\n if you need an example\n), all you need to do is either publish this in a git repository (\ntraveling-sailor\n is the optimal example!) or serve this is a gzip archive.\n\n\nCreating a job via the Web UI\n\n\n\n\nNavigate to the \"Create a Job\" page by clicking the link on the top-right of the homepage.\n\n\nEnter a descriptive indentifying name for the job, (eg. Traveling Sailor).\n\n\nEnter how many minutes of CPU time (not real time) you want the job to run for, (eg. 40).\n\n\n\n\nEnter a URL to a git repository or a downloadable tarball (.tar.gz). The following are all valid examples from \ntraveling-sailor\n. The first two are valid links to a git repository and the last is a static tarball. git repositories are recommended as they can be more efficiently updated if cached on an agent.\n\n\n\n\ngit://github.com/mesos-magellan/traveling-sailor\n\n\nhttps://github.com/mesos-magellan/traveling-sailor.git\n\n\nhttps://github.com/mesos-magellan/traveling-sailor/archive/0.1.0.tar.gz\n\n\n\n\n\n\n\n\nEnter any additional data in JSON format you want to be passed on to your module. (Example for traveling-sailor at the end of this section).\n\n\n\n\nPress the \"Create Job\" button, you will then be forwarded to the \"Job Details\" page for your newly created job.\n\n\n\n\nModule JSON data example for traveling-sailor:\n\n\n{\n\ncities\n: {\n   \nHolmesville\n: [31.7036111, -82.3208333],\n   \nJatipasir\n: [-8.2509, 113.9975],\n   \nTapalinna\n: [-2.923, 119.1626],\n   \nSahout el Ma\n: [16.9166667, -15.1666667],\n   \nIsanganaka\n: [-0.683333, 24.083333],\n   \nEl Yerbanis\n: [29.45, -108.6],\n   \nGun-ob\n: [9.6289, 124.0517],\n   \nChak Seventy-five ML\n: [31.345362, 71.123454],\n   \nBakous\n: [13.7363889, -16.6080556],\n   \nMetkow Maly\n: [50.05, 19.4]\n},\n\nupdates_enabled\n: false,\n\nstart_city\n: \nBakous\n\n}", 
             "title": "Guides"
         }, 
         {
@@ -292,12 +217,12 @@
         }, 
         {
             "location": "/guide/#packaging-your-problem-for-magellan", 
-            "text": "Once you have your  problem.py  defined ( see  traveling-sailor \\'s  problem.py  if you need an example ), all you need to do is either publish this in a git repository ( traveling-sailor  is the optimal example!) or serve this is a gzip archive.", 
+            "text": "Once you have your  problem.py  defined ( see  traveling-sailor 's  problem.py  if you need an example ), all you need to do is either publish this in a git repository ( traveling-sailor  is the optimal example!) or serve this is a gzip archive.", 
             "title": "Packaging your Problem for Magellan"
         }, 
         {
             "location": "/guide/#creating-a-job-via-the-web-ui", 
-            "text": "Navigate to the \"Create a Job\" page by clicking the link on the top-right of the homepage.  Enter a descriptive indentifying name for the job, (eg. Traveling Sailor).  Enter how many minutes of CPU time (not real time) you want the job to run for, (eg. 40).  Enter a URL to a git repository or a downloadable tarball (.tar.gz). The following are all valid examples from  traveling-sailor . The first two are valid links to a git repository and the last is a static tarball. git repositories are recommended as they can be more efficiently updated if cached on an agent.  git://github.com/mesos-magellan/traveling-sailor  https://github.com/mesos-magellan/traveling-sailor.git   https://github.com/mesos-magellan/traveling-sailor/archive/0.1.0.tar.gz    Enter any additional data in JSON format you want to be passed on to your module. (Example for traveling-sailor at the end of this section).   Press the \"Create Job\" button, you will then be forwarded to the \"Job Details\" page for your newly created job.   Module JSON data example for traveling-sailor:  { cities : {\n    Holmesville : [31.7036111, -82.3208333],\n    Jatipasir : [-8.2509, 113.9975],\n    Tapalinna : [-2.923, 119.1626],\n    Sahout el Ma : [16.9166667, -15.1666667],\n    Isanganaka : [-0.683333, 24.083333],\n    El Yerbanis : [29.45, -108.6],\n    Gun-ob : [9.6289, 124.0517],\n    Chak Seventy-five ML : [31.345362, 71.123454],\n    Bakous : [13.7363889, -16.6080556],\n    Metkow Maly : [50.05, 19.4]\n}, updates_enabled : false, start_city :  Bakous \n}", 
+            "text": "Navigate to the \"Create a Job\" page by clicking the link on the top-right of the homepage.  Enter a descriptive indentifying name for the job, (eg. Traveling Sailor).  Enter how many minutes of CPU time (not real time) you want the job to run for, (eg. 40).   Enter a URL to a git repository or a downloadable tarball (.tar.gz). The following are all valid examples from  traveling-sailor . The first two are valid links to a git repository and the last is a static tarball. git repositories are recommended as they can be more efficiently updated if cached on an agent.   git://github.com/mesos-magellan/traveling-sailor  https://github.com/mesos-magellan/traveling-sailor.git  https://github.com/mesos-magellan/traveling-sailor/archive/0.1.0.tar.gz     Enter any additional data in JSON format you want to be passed on to your module. (Example for traveling-sailor at the end of this section).   Press the \"Create Job\" button, you will then be forwarded to the \"Job Details\" page for your newly created job.   Module JSON data example for traveling-sailor:  { cities : {\n    Holmesville : [31.7036111, -82.3208333],\n    Jatipasir : [-8.2509, 113.9975],\n    Tapalinna : [-2.923, 119.1626],\n    Sahout el Ma : [16.9166667, -15.1666667],\n    Isanganaka : [-0.683333, 24.083333],\n    El Yerbanis : [29.45, -108.6],\n    Gun-ob : [9.6289, 124.0517],\n    Chak Seventy-five ML : [31.345362, 71.123454],\n    Bakous : [13.7363889, -16.6080556],\n    Metkow Maly : [50.05, 19.4]\n}, updates_enabled : false, start_city :  Bakous \n}", 
             "title": "Creating a job via the Web UI"
         }
     ]

@@ -69,18 +69,6 @@
             
             
                 <li >
-                    <a href="../arch/">Architecture</a>
-                </li>
-            
-            
-            
-                <li >
-                    <a href="../test/">Testing</a>
-                </li>
-            
-            
-            
-                <li >
                     <a href="../demo/">Demo</a>
                 </li>
             
@@ -143,17 +131,19 @@
    * <code>divide</code> method: The implementation of the divide method is up to your choosing. By definition, the divide method should subdivide the solution space given by your <code>problem_data</code> into the given <code>divisions</code> deterministically.</p>
 <p>And you're done defining your problem! That was easy wasn't it?</p>
 <h2 id="packaging-your-problem-for-magellan">Packaging your Problem for Magellan</h2>
-<p>Once you have your <code>problem.py</code> defined (<a href="https://github.com/mesos-magellan/traveling-sailor/blob/master/problem.py">see <em>traveling-sailor</em>\'s <code>problem.py</code> if you need an example</a>), all you need to do is either publish this in a git repository (<em>traveling-sailor</em> is the optimal example!) or serve this is a gzip archive.</p>
+<p>Once you have your <code>problem.py</code> defined (<a href="https://github.com/mesos-magellan/traveling-sailor/blob/master/problem.py">see <em>traveling-sailor</em>'s <code>problem.py</code> if you need an example</a>), all you need to do is either publish this in a git repository (<em>traveling-sailor</em> is the optimal example!) or serve this is a gzip archive.</p>
 <h2 id="creating-a-job-via-the-web-ui">Creating a job via the Web UI</h2>
 <ul>
 <li>Navigate to the "Create a Job" page by clicking the link on the top-right of the homepage.</li>
 <li>Enter a descriptive indentifying name for the job, (eg. Traveling Sailor).</li>
 <li>Enter how many minutes of CPU time (not real time) you want the job to run for, (eg. 40).</li>
-<li>Enter a URL to a git repository or a downloadable tarball (.tar.gz). The following are all valid examples from <em>traveling-sailor</em>. The first two are valid links to a git repository and the last is a static tarball. git repositories are recommended as they can be more efficiently updated if cached on an agent.</li>
+<li>
+<p>Enter a URL to a git repository or a downloadable tarball (.tar.gz). The following are all valid examples from <em>traveling-sailor</em>. The first two are valid links to a git repository and the last is a static tarball. git repositories are recommended as they can be more efficiently updated if cached on an agent.</p>
+<ul>
 <li>git://github.com/mesos-magellan/traveling-sailor</li>
 <li>https://github.com/mesos-magellan/traveling-sailor.git</li>
-<li>
-<p>https://github.com/mesos-magellan/traveling-sailor/archive/0.1.0.tar.gz</p>
+<li>https://github.com/mesos-magellan/traveling-sailor/archive/0.1.0.tar.gz</li>
+</ul>
 </li>
 <li>
 <p>Enter any additional data in JSON format you want to be passed on to your module. (Example for traveling-sailor at the end of this section).</p>

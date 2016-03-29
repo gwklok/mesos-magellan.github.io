@@ -27,22 +27,6 @@
 
     
     <url>
-     <loc>None/arch/</loc>
-     <lastmod>2016-03-29</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    
-
-    
-    <url>
-     <loc>None/test/</loc>
-     <lastmod>2016-03-29</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    
-
-    
-    <url>
      <loc>None/demo/</loc>
      <lastmod>2016-03-29</lastmod>
      <changefreq>daily</changefreq>
