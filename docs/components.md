@@ -71,3 +71,13 @@ The main loop of the MagellanFramework is run in a separate thread which calls t
 
 
 After receiving the scheduling suggestions by Fenzo,the the framework then prepares each task by creating a `TaskInfo` object which contains information such as the slave ID and task data. Tasks are scheduled on a per Host (node) basis. Hosts are specified using the `VMAssignmentResult` object and can offer multiple resource offers (called `leases` in the code). A list of all TaskInfo object for each host is created in an object called `taskInfos`. Additionally, a list of all the resource offer ids that will be used on the particular host are created and stored in a list called `offerIDs`. Once the `taskInfos` and `offerIDs` objects are populated, they are submitted to the mesos driver using the method, `MesosSchedulerDriver::launchTasks()`. The mesos driver is responsible for getting the tasks to their corresponding executor.
+
+## Executor
+
+`enrique` implements the Executor interface which the `mesos-slave` process calls if it receives a message from the Mesos master.
+
+The executor receives and unpacks the task data. After unpacking the data, it fetches the specified client task package. This package could already exist locally in the cache of the current node. If it does not, it will be fetched with the given and loaded. The executor at the moment supports *git* repositories and *gzip* archives.
+
+After fetching is complete, the `enrique` will extract and load the provided `problem` Python module by the client, and from that the `Problem` class which is the implementation of the `Problem` interface from `pyrallelsa`.
+
+With this `Problem` implementation, SA will be run and the best energy and state returned back to the executor to be sent back to the agent and then to Mesos master.
