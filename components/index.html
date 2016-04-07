@@ -125,6 +125,8 @@
         
             <li><a href="#framework-main-loop">Framework Main Loop</a></li>
         
+            <li><a href="#executor">Executor</a></li>
+        
     
     </ul>
 </div></div>
@@ -178,7 +180,12 @@
 <p>Normally, scheduler state would have been preserved in RAM which would be lost once the lead scheduler goes down. To alleviate this, we persist all the necesssary internal state to revive a job on a new scheduler on Zookeeper. When a new leader is elected, it reads this state from Zookeeper and starts the previously running jobs from where the left off.</p>
 <h3 id="framework-main-loop">Framework Main Loop</h3>
 <p>The main loop of the MagellanFramework is run in a separate thread which calls the function <code>MagellanFramework::runFramework()</code>. This function first loops through the list of running jobs in the system and calls <code>MagellanJob::getPendingTasks()</code> on each job to get a list of tasks it wants to schedule. It then gives this list to Fenzo by calling <code>TaskScheduler::scheduleOnce()</code> and receives a mapping between resource offers and tasks. If some of the tasks are not selected to be scheduled by Fenzo, then the remaining tasks are retained by the Framework and are submitted to Fenzo again during the next iteration. </p>
-<p>After receiving the scheduling suggestions by Fenzo,the the framework then prepares each task by creating a <code>TaskInfo</code> object which contains information such as the slave ID and task data. Tasks are scheduled on a per Host (node) basis. Hosts are specified using the <code>VMAssignmentResult</code> object and can offer multiple resource offers (called <code>leases</code> in the code). A list of all TaskInfo object for each host is created in an object called <code>taskInfos</code>. Additionally, a list of all the resource offer ids that will be used on the particular host are created and stored in a list called <code>offerIDs</code>. Once the <code>taskInfos</code> and <code>offerIDs</code> objects are populated, they are submitted to the mesos driver using the method, <code>MesosSchedulerDriver::launchTasks()</code>. The mesos driver is responsible for getting the tasks to their corresponding executor.</p></div>
+<p>After receiving the scheduling suggestions by Fenzo,the the framework then prepares each task by creating a <code>TaskInfo</code> object which contains information such as the slave ID and task data. Tasks are scheduled on a per Host (node) basis. Hosts are specified using the <code>VMAssignmentResult</code> object and can offer multiple resource offers (called <code>leases</code> in the code). A list of all TaskInfo object for each host is created in an object called <code>taskInfos</code>. Additionally, a list of all the resource offer ids that will be used on the particular host are created and stored in a list called <code>offerIDs</code>. Once the <code>taskInfos</code> and <code>offerIDs</code> objects are populated, they are submitted to the mesos driver using the method, <code>MesosSchedulerDriver::launchTasks()</code>. The mesos driver is responsible for getting the tasks to their corresponding executor.</p>
+<h2 id="executor">Executor</h2>
+<p><code>enrique</code> implements the Executor interface which the <code>mesos-slave</code> process calls if it receives a message from the Mesos master.</p>
+<p>The executor receives and unpacks the task data. After unpacking the data, it fetches the specified client task package. This package could already exist locally in the cache of the current node. If it does not, it will be fetched with the given and loaded. The executor at the moment supports <em>git</em> repositories and <em>gzip</em> archives.</p>
+<p>After fetching is complete, the <code>enrique</code> will extract and load the provided <code>problem</code> Python module by the client, and from that the <code>Problem</code> class which is the implementation of the <code>Problem</code> interface from <code>pyrallelsa</code>.</p>
+<p>With this <code>Problem</code> implementation, SA will be run and the best energy and state returned back to the executor to be sent back to the agent and then to Mesos master.</p></div>
         </div>
 
         <footer class="col-md-12">
